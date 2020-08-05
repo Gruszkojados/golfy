@@ -37,6 +37,7 @@ public class LvlController : MonoBehaviour
     }
 
     void LoadLvl(bool incrementLvlIndex) {
+        
         lvlComplited();
         if(currentLvl!=null) {
             Destroy(currentLvl.gameObject);
@@ -44,6 +45,7 @@ public class LvlController : MonoBehaviour
         if(incrementLvlIndex) {
             lvlIndex++;
         }
+        OnBestScore.Invoke(lvlIndex);
         currentLvl = Instantiate(lvlList[lvlIndex]);
         lvlComplitedObject.SetActive(false);
         forceButton.SetActive(true);

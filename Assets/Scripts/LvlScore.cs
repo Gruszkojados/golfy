@@ -7,19 +7,25 @@ public class LvlScore : MonoBehaviour
 {   
     public LevelData allScores;
     public static event Action<int> OnScoreChange = (number) => {};
+    public static event Action<LevelData> OnLoadScore = (allScores) => {};
     int numberOfLvlScore = 0;
 
     private void Awake() {
+        Debug.Log("LvlScore Awake()");
         LoadScore();
+        foreach (var item in allScores.scoreList)
+        {
+            Debug.Log("Wczytany score: " + item);
+        }
+        allScores = new LevelData();
         ShootButton.OnShoot += IncrementLvlScore;
         LvlController.OnLvlComplited += addIndexAndScoreList;
         LvlController.OnLvlLoaded += ClearScore;
         LvlController.OnGoToHome += addIndexAndScoreList;
-        allScores = new LevelData();
     }
 
     private void OnDestroy() {
-        SaveScore(allScores);
+        SaveScore();
         ShootButton.OnShoot -= IncrementLvlScore;
         LvlController.OnLvlComplited -= addIndexAndScoreList;
         LvlController.OnLvlLoaded -= ClearScore;
@@ -29,17 +35,28 @@ public class LvlScore : MonoBehaviour
         if(allScores.scoreList.Count<=lvlIndex) {
             allScores.scoreList.Add(numberOfLvlScore);
         } else if (allScores.scoreList.Count>=lvlIndex) {
-            allScores.scoreList[lvlIndex] = numberOfLvlScore;
+            if(allScores.scoreList[lvlIndex]<numberOfLvlScore) {
+                allScores.scoreList[lvlIndex] = numberOfLvlScore;
+            }
         }
     }
 
     void LoadScore() {
-        string json = PlayerPrefs.GetString("allScores");
-        allScores = JsonUtility.FromJson<LevelData>(json);
+        allScores = LoadData();
+        LogReadWrite(false);
+        OnLoadScore.Invoke(allScores);
     }
 
-    void SaveScore(LevelData allScores) {
-        Debug.Log("zapisano postęp");
+    
+
+    public LevelData LoadData() {
+        string json = PlayerPrefs.GetString("allScores");
+        LevelData allScoresTemp = JsonUtility.FromJson<LevelData>(json);
+        return allScoresTemp;
+    } 
+
+    void SaveScore() {
+        LogReadWrite(true);
         PlayerPrefs.SetString("allScores", JsonUtility.ToJson(allScores));
     }
 
@@ -50,6 +67,18 @@ public class LvlScore : MonoBehaviour
 
     void ClearScore(Lvl levelUnused) {
         numberOfLvlScore = 0;
+    }
+
+    void LogReadWrite(bool isSaveing) {
+        string highScores = "";
+        foreach (var item in allScores.scoreList){
+            highScores += (" " + item.ToString());
+        }
+        if(isSaveing) {
+            Debug.Log("Zapisano postęp: " + highScores);
+        } else {
+            Debug.Log("Wczytano postęp: " + highScores);
+        }
     }
 }
 
