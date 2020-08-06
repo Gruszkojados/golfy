@@ -15,7 +15,7 @@ public class TargetText : MonoBehaviour
         LvlController.OnLvlLoaded -= OnLvlLoaded;
     }
 
-    void OnLvlLoaded(Lvl level) {
+    void OnLvlLoaded(Lvl level, int _) {
         textMeshProUGUI.text = level.targetOfShoots.ToString();
     }
 }

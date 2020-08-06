@@ -22,7 +22,7 @@ public class CurrentScoreText : MonoBehaviour
         textMeshProUGUI.text = number.ToString();
     }
 
-    void ClearScore(Lvl number) {
+    void ClearScore(Lvl _, int __) {
         textMeshProUGUI.text = "0";
     }
 
