@@ -22,6 +22,11 @@ public class ForceButton : MonoBehaviour
         Ball.OnBallStop += ShowForceButton;
     }
 
+    private void OnDestroy() {
+        ShootButton.OnShoot -= HideButton;
+        Ball.OnBallStop -= ShowForceButton;
+    }
+
     void HideButton(float power) {
         gameObject.SetActive(false);
     }
@@ -29,11 +34,4 @@ public class ForceButton : MonoBehaviour
     void ShowForceButton() {
         gameObject.SetActive(true);
     }
-
-    private void OnDestroy() {
-        ShootButton.OnShoot -= HideButton;
-        Ball.OnBallStop -= ShowForceButton;
-    }
-
-
 }
