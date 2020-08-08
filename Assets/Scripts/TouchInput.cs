@@ -14,6 +14,8 @@ public class TouchInput : MonoBehaviour
     
     bool isDragging;
     float lastFingerX;
+
+    public float myDragForce = 2f;
     
     void Update()
     {
@@ -73,7 +75,7 @@ public class TouchInput : MonoBehaviour
             // scrolling!
             lastFingerX = touchX;
 
-            OnDrag.Invoke(dragAmount * dragForce);
+            OnDrag.Invoke(dragAmount * dragForce * myDragForce);
         }
     }
 
@@ -99,7 +101,7 @@ public class TouchInput : MonoBehaviour
             // scrolling!
             lastFingerX = touchX;
 
-            OnDrag.Invoke(dragAmount * dragForce);
+            OnDrag.Invoke(dragAmount * dragForce * myDragForce);
         }
     }
 }

@@ -8,7 +8,6 @@ public class LvlController : MonoBehaviour
 {   
     public static event Action<Lvl, int> OnLvlLoaded = (level, index) => {};
     public static event Action<int> OnLvlComplited = (index) => {};
-    // public static event Action<int> OnGoToHome = (index) => {};
     public LvlList lvlList;
     Lvl currentLvl;
     int lvlIndex;
@@ -57,7 +56,6 @@ public class LvlController : MonoBehaviour
     }
 
     public void GoToHome() {
-        // OnGoToHome.Invoke(lvlIndex);
         SceneManager.LoadScene(0);
     }
 }

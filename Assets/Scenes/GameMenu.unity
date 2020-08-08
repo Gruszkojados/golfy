@@ -156,8 +156,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 15}
-  m_SizeDelta: {x: 130, y: 50}
+  m_AnchoredPosition: {x: 7, y: -85}
+  m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &62659724
 MonoBehaviour:
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 5
 --- !u!222 &62659726
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -630,7 +630,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00001297986}
+  m_AnchoredPosition: {x: 0, y: -0.00004591617}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &656781539
@@ -672,7 +672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lvlButtonPrefab: {fileID: 356304493413074080, guid: 2d297f67af083a647ad29d3ac266359d,
     type: 3}
-  lvlList: {fileID: 8743786877913209374, guid: 0f4ff6178ebaf824eac9869c37b2e867, type: 3}
 --- !u!1 &689637427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,8 +1017,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 526154183}
   m_HandleRect: {fileID: 526154182}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99992776
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1301,7 +1300,7 @@ RectTransform:
   m_GameObject: {fileID: 1132176312}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.78, y: 2.2000735, z: 1}
   m_Children:
   - {fileID: 485572860}
   - {fileID: 1602329084}
@@ -1850,8 +1849,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 791029942}
   m_HandleRect: {fileID: 791029941}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1928,8 +1927,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: 150}
-  m_SizeDelta: {x: 169.61, y: 50}
+  m_AnchoredPosition: {x: 11, y: 126}
+  m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1893718480
 MonoBehaviour:
@@ -2012,7 +2011,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 5
 --- !u!222 &1893718482
 CanvasRenderer:
   m_ObjectHideFlags: 0

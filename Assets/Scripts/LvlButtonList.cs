@@ -5,7 +5,6 @@ using UnityEngine;
 public class LvlButtonList : MonoBehaviour
 {   
     public LvlButton lvlButtonPrefab;
-    public LvlList lvlList;
     void Start()
     {   
         LevelData levelData = LevelData.LoadData();

@@ -48,6 +48,9 @@ TagManager:
   - name: GameObjects
     uniqueID: 625167215
     locked: 0
+  - name: Hole
+    uniqueID: 1806277267
+    locked: 0
   - name: Ball
     uniqueID: 3546497289
     locked: 0

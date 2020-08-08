@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ChargeBar : MonoBehaviour
 {
-    public static event Action OnCharge = () => { };
+    //public static event Action OnCharge = () => { };
 
     public UnityEngine.UI.Image image;
     bool up = true;

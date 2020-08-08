@@ -11,16 +11,19 @@ public class Ball : MonoBehaviour
     Rigidbody2D rigid;
     bool isMoving;
     public GameObject rotationBar;
-    public float rotationSpeed = 40f;
+
+    bool canRotate = true;
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
         ShootButton.OnShoot += Shoot;
         TouchInput.OnDrag += Rotate;
+        ForceButton.OnChangeForce += StopBallRotate;
     }
 
     private void OnDestroy() {
         ShootButton.OnShoot -= Shoot;
         TouchInput.OnDrag -= Rotate;
+        ForceButton.OnChangeForce -= StopBallRotate;
     }
 
     private void Update() {
@@ -30,15 +33,19 @@ public class Ball : MonoBehaviour
         if(rigid.velocity.sqrMagnitude < 0.4f) {
             isMoving = false;
             ShowRotationBar();
+            LetBallRotate();
             OnBallStop.Invoke();
         }
     }
 
     void Rotate(float rotate) {
+        if(!canRotate) {
+            return;
+        }
         if(rotate>0) {
-            RotateRight();
+            RotateRight(rotate);
         } else {
-            RotateLeft();
+            RotateLeft(rotate);
         }
     }
     public void Shoot(float power) {
@@ -47,16 +54,26 @@ public class Ball : MonoBehaviour
         rigid.AddForce(transform.up  * power, ForceMode2D.Impulse);
     }
 
-    public void RotateLeft() {
-        transform.Rotate(new Vector3(0,0,1 * rotationSpeed));
+    public void RotateLeft(float rotaterForce) {
+        transform.Rotate(new Vector3(0,0,1 * rotaterForce));
     }
-    public void RotateRight() {
-        transform.Rotate(new Vector3(0,0,-1 * rotationSpeed));
+    public void RotateRight(float rotaterForce) {
+        transform.Rotate(new Vector3(0,0,-1 * -rotaterForce));
     }
     void HideRotationBar() {
         rotationBar.SetActive(false);
     }
     void ShowRotationBar() {
         rotationBar.SetActive(true);
+    }
+
+    void LetBallRotate() {
+        Debug.Log("start rotate");
+        canRotate = true;
+    }
+
+    void StopBallRotate() {
+        Debug.Log("stop rotate");
+        canRotate = false;
     }
 }

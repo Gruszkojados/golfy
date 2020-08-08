@@ -14,6 +14,7 @@ public class ForceButton : MonoBehaviour
         {
             item.SetActive(true);
         }
+        OnChangeForce.Invoke();
         gameObject.SetActive(false);
     }
 
