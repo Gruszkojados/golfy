@@ -8,9 +8,11 @@ public class Ball : MonoBehaviour
 {   
 
     public static event Action OnBallStop = () => { };
+    public static event Action<float, float> OnBallChangePosition = (x, y) => {};
     Rigidbody2D rigid;
     bool isMoving;
     public GameObject rotationBar;
+
 
     bool canRotate = true;
     void Awake() {
@@ -30,6 +32,9 @@ public class Ball : MonoBehaviour
         if(!isMoving) {
             return;
         }
+
+        OnBallChangePosition.Invoke(transform.position.x, transform.position.y);
+
         if(rigid.velocity.sqrMagnitude < 0.4f) {
             isMoving = false;
             ShowRotationBar();
@@ -68,12 +73,10 @@ public class Ball : MonoBehaviour
     }
 
     void LetBallRotate() {
-        Debug.Log("start rotate");
         canRotate = true;
     }
 
     void StopBallRotate() {
-        Debug.Log("stop rotate");
         canRotate = false;
     }
 }

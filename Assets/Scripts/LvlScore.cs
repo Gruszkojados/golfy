@@ -55,12 +55,10 @@ public class LvlScore : MonoBehaviour
         numberOfLvlScore = 0;
         currentLvlIndex = index;
     }
-
-    
 }
 
 [Serializable]
-public class LevelData
+public class LevelData 
 {
     public LevelData() {
         scoreList = new List<int>();
@@ -81,18 +79,4 @@ public class LevelData
     public void SaveScore() {
         PlayerPrefs.SetString(classKey, JsonUtility.ToJson(this));
     }
-
-    // dokoncz potem sobie jedrek xd
-    void LogReadWrite(bool isSaveing) {
-        string highScores = "";
-        foreach (var item in scoreList){
-            highScores += (" " + item.ToString());
-        }
-        if(isSaveing) {
-            Debug.Log("Zapisano postęp: " + highScores);
-        } else {
-            Debug.Log("Wczytano postęp: " + highScores);
-        }
-    }
-
 }
