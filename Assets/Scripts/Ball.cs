@@ -22,6 +22,10 @@ public class Ball : MonoBehaviour
         ForceButton.OnChangeForce += StopBallRotate;
     }
 
+    private void Start() {
+        OnBallChangePosition.Invoke(transform.position.x, transform.position.y);
+    }
+
     private void OnDestroy() {
         ShootButton.OnShoot -= Shoot;
         TouchInput.OnDrag -= Rotate;
