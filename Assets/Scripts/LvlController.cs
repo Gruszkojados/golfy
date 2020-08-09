@@ -8,10 +8,13 @@ public class LvlController : MonoBehaviour
 {   
     public static event Action<Lvl, int> OnLvlLoaded = (level, index) => {};
     public static event Action<int> OnLvlComplited = (index) => {};
+    public static event Action<float> OnShowQuickMenu = (_) => {};
+    public static event Action OnHideQuickMenu = () => {};
     public LvlList lvlList;
     Lvl currentLvl;
     int lvlIndex;
     public GameObject lvlComplitedObject;
+    public GameObject quickMenuObject;
     public GameObject forceButton;
     void Start()
     {
@@ -35,7 +38,7 @@ public class LvlController : MonoBehaviour
     }
 
     void LoadLvl(LoadLevelType loadLvlType) {
-        
+        HideQuickGameMenu(0);
         lvlComplited();
         if(currentLvl!=null) {
             Destroy(currentLvl.gameObject);
@@ -57,6 +60,16 @@ public class LvlController : MonoBehaviour
 
     public void GoToHome() {
         SceneManager.LoadScene(0);
+    }
+
+    public void ShowQuickGameMenu() {
+        quickMenuObject.SetActive(true);
+        OnShowQuickMenu.Invoke(0);
+    }
+
+    public void HideQuickGameMenu(float _) {
+        quickMenuObject.SetActive(false);
+        OnHideQuickMenu.Invoke();
     }
 }
 

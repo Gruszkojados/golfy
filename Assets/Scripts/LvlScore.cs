@@ -6,7 +6,7 @@ using UnityEngine;
 public class LvlScore : MonoBehaviour
 {   
     public static event Action<int> OnScoreChange = (number) => {};
-    public static event Action<LevelData> OnLoadScore = (allScores) => {};
+    public static event Action<int, int> OnLoadScore = (currentLvl, actualScore) => {};
 
     int numberOfLvlScore = 0;
     public LevelData allScores;
@@ -43,7 +43,6 @@ public class LvlScore : MonoBehaviour
 
     void LoadScore() {
         allScores = LevelData.LoadData();
-        OnLoadScore.Invoke(allScores);
     }
 
     void IncrementLvlScore(float nothing) {
@@ -54,6 +53,7 @@ public class LvlScore : MonoBehaviour
     void OnLvlLoaded(Lvl _, int index) {
         numberOfLvlScore = 0;
         currentLvlIndex = index;
+        OnLoadScore.Invoke(currentLvlIndex, allScores.scoreList[currentLvlIndex]);
     }
 }
 
