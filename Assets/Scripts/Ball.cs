@@ -13,6 +13,7 @@ public class Ball : MonoBehaviour
     bool isMoving;
     public GameObject rotationBar;
 
+    public Animator animator;
 
     bool canRotate = true;
     void Awake() {
@@ -34,9 +35,10 @@ public class Ball : MonoBehaviour
 
     private void Update() {
         if(!isMoving) {
+            animator.SetBool("isMove", false);
             return;
         }
-
+        
         OnBallChangePosition.Invoke(transform.position.x, transform.position.y);
 
         if(rigid.velocity.sqrMagnitude < 0.4f) {
@@ -58,6 +60,7 @@ public class Ball : MonoBehaviour
         }
     }
     public void Shoot(float power) {
+        animator.SetBool("isMove", true);
         isMoving = true;
         HideRotationBar();
         rigid.AddForce(transform.up  * power, ForceMode2D.Impulse);
