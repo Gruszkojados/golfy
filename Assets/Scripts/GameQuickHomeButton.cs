@@ -7,13 +7,13 @@ public class GameQuickHomeButton : MonoBehaviour
 {   
     private void Awake() {
         ShootButton.OnShoot += HideButton;
-        Ball.OnBallStop += Show_1;
+        Ball.OnAnyBallStop += Show_1;
         LvlController.OnLvlLoaded += Show_2;
     }
 
     private void OnDestroy() {
         ShootButton.OnShoot -= HideButton;
-        Ball.OnBallStop -= Show_1;
+        Ball.OnAnyBallStop -= Show_1;
         LvlController.OnLvlLoaded -= Show_2;
     }
 

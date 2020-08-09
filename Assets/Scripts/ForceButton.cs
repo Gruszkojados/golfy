@@ -20,14 +20,14 @@ public class ForceButton : MonoBehaviour
 
     private void Awake() {
         ShootButton.OnShoot += HideButton;
-        Ball.OnBallStop += ShowForceButton;
+        Ball.OnAnyBallStop += ShowForceButton;
         LvlController.OnShowQuickMenu += HideButton;
         LvlController.OnHideQuickMenu += ShowForceButton;
     }
 
     private void OnDestroy() {
         ShootButton.OnShoot -= HideButton;
-        Ball.OnBallStop -= ShowForceButton;
+        Ball.OnAnyBallStop -= ShowForceButton;
         LvlController.OnShowQuickMenu -= HideButton;
         LvlController.OnHideQuickMenu -= ShowForceButton;
     }

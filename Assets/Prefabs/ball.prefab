@@ -381,6 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationBar: {fileID: 5740961655418589050}
+  ballColider: {fileID: 5740961655563771526}
   animator: {fileID: 7644159658580727128}
 --- !u!58 &5740961655563771526
 CircleCollider2D:

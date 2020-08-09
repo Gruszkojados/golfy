@@ -6,20 +6,21 @@ using System;
 
 public class Ball : MonoBehaviour
 {   
-
-    public static event Action OnBallStop = () => { };
+    public static event Action OnAnyBallStop = () => { };
+    public event Action<Ball> OnBallStoped = (_) => { }; 
     public static event Action<float, float> OnBallChangePosition = (x, y) => {};
     Rigidbody2D rigid;
     bool isMoving;
     public GameObject rotationBar;
 
+    public Collider2D ballColider;
+
     public Animator animator;
+    bool isSupscribed = false;
 
     bool canRotate = true;
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
-        ShootButton.OnShoot += Shoot;
-        TouchInput.OnDrag += Rotate;
         ForceButton.OnChangeForce += StopBallRotate;
     }
 
@@ -28,9 +29,17 @@ public class Ball : MonoBehaviour
     }
 
     private void OnDestroy() {
-        ShootButton.OnShoot -= Shoot;
-        TouchInput.OnDrag -= Rotate;
+        if(isSupscribed) {
+            ShootButton.OnShoot -= Shoot;
+            TouchInput.OnDrag -= Rotate;
+        }
         ForceButton.OnChangeForce -= StopBallRotate;
+    }
+
+    public void SupscribeTouchCtl() {
+        isSupscribed = true;
+        ShootButton.OnShoot += Shoot;
+        TouchInput.OnDrag += Rotate;
     }
 
     private void Update() {
@@ -45,7 +54,8 @@ public class Ball : MonoBehaviour
             isMoving = false;
             ShowRotationBar();
             LetBallRotate();
-            OnBallStop.Invoke();
+            OnAnyBallStop.Invoke();
+            OnBallStoped.Invoke(this);
         }
     }
 
@@ -59,11 +69,19 @@ public class Ball : MonoBehaviour
             RotateLeft(rotate);
         }
     }
+
+    public void ActivateBall(bool isactive) {
+        ballColider.enabled = isactive;
+    }
+
     public void Shoot(float power) {
-        animator.SetBool("isMove", true);
+        Shoot(power, transform.up);
+    }
+
+    public void Shoot(float power, Vector2 direction) {
         isMoving = true;
         HideRotationBar();
-        rigid.AddForce(transform.up  * power, ForceMode2D.Impulse);
+        rigid.AddForce(direction * power, ForceMode2D.Impulse);
     }
 
     public void RotateLeft(float rotaterForce) {
