@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WallCollider : MonoBehaviour
-{
+{   
+    public static event Action OnColiderDrowed = () => {};
     public LineRenderer lineRenderer;
     public EdgeCollider2D edgeCollider2D;
     List<Vector2> points = new List<Vector2>();
@@ -17,6 +19,7 @@ public class WallCollider : MonoBehaviour
             points.Add(pointTmp);
         }
         edgeCollider2D.points = points.ToArray();
+        OnColiderDrowed.Invoke();
     }
 
 }

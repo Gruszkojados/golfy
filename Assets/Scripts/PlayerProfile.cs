@@ -10,6 +10,6 @@ public static class PlayerProfile
 
 public enum Gamemode
 {
-    singlePlayer = 0,
-    bot = 1
+    singlePlayer = 1,
+    bot = 0
 }

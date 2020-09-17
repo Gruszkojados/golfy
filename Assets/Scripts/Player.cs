@@ -21,7 +21,6 @@ public abstract class Player
 
     void OnBallStoped(Ball ball) {
         OnTunrFinished.Invoke();
-        // ball.ActivateBall(false);
     }
 
     public virtual void StartTurn() {

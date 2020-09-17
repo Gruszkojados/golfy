@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using golf;
 using System;
+using Pathfinding;
 
 public class Ball : MonoBehaviour
 {   
@@ -12,8 +13,8 @@ public class Ball : MonoBehaviour
     Rigidbody2D rigid;
     bool isMoving;
     public GameObject rotationBar;
-
     public Collider2D ballColider;
+    public Seeker seeker;
 
     public Animator animator;
     bool isSupscribed = false;
@@ -22,6 +23,7 @@ public class Ball : MonoBehaviour
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
         ForceButton.OnChangeForce += StopBallRotate;
+        seeker = GetComponent<Seeker>();
     }
 
     private void Start() {
@@ -43,11 +45,11 @@ public class Ball : MonoBehaviour
     }
 
     private void Update() {
+        
         if(!isMoving) {
             animator.SetBool("isMove", false);
             return;
         }
-        
         OnBallChangePosition.Invoke(transform.position.x, transform.position.y);
 
         if(rigid.velocity.sqrMagnitude < 0.4f) {
