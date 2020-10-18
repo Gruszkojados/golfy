@@ -24,6 +24,7 @@ public abstract class Player
     }
 
     public virtual void StartTurn() {
+        Debug.Log("Aktywowanie piłki");
         ball.ActivateBall(true);
     }
 }

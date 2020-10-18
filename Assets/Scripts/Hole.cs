@@ -20,7 +20,7 @@ public class Hole : MonoBehaviour
     }
 
     public void WhereIsHole() {
-        HoleInitioalPosition(holePosition);
+        HoleInitioalPosition.Invoke(holePosition);
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag=="Ball"){

@@ -14,8 +14,8 @@ public class Ball : MonoBehaviour
     bool isMoving;
     public GameObject rotationBar;
     public Collider2D ballColider;
+    [HideInInspector]
     public Seeker seeker;
-
     public Animator animator;
     bool isSupscribed = false;
 

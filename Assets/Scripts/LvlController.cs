@@ -33,6 +33,8 @@ public class LvlController : MonoBehaviour
         LoadLvl(LoadLevelType.nextLvl);
     }
 
+    
+
     public void Reloadlvl() {
         LoadLvl(LoadLevelType.currentLvl);
     }
@@ -40,7 +42,7 @@ public class LvlController : MonoBehaviour
     void LoadLvl(LoadLevelType loadLvlType) {
         HideQuickGameMenu(0);
         lvlComplited();
-        if(currentLvl!=null) {
+        if(currentLvl!=null) {      
             Destroy(currentLvl.gameObject);
         }
         if(loadLvlType==LoadLevelType.nextLvl) {
@@ -51,6 +53,7 @@ public class LvlController : MonoBehaviour
         currentLvl = Instantiate(lvlList.levels[lvlIndex]);
         lvlComplitedObject.SetActive(false);
         forceButton.SetActive(true);
+        Debug.Log("Załadowano poziom !");
         OnLvlLoaded.Invoke(currentLvl, lvlIndex);
     }
 

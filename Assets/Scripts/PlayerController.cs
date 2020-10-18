@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour
     Ball[] balls;
 
     private void Awake() {
+        Debug.Log("Player kontroller jest inicjowany");
         LvlController.OnLvlLoaded += OnLvlLoaded;
         Ball.OnAnyBallStop += OnBallStoped;
         InitPlayers();
-        
     }
     private void OnDestroy() {
         LvlController.OnLvlLoaded -= OnLvlLoaded;
@@ -50,14 +50,19 @@ public class PlayerController : MonoBehaviour
         }
         balls = new Ball[players.Length];
         int index = 0;
-        foreach (var item in players)
+        foreach (var player in players)
         {
             Ball ball = Instantiate(ballPrefab);
             ball.ActivateBall(false);
-            item.InitPlayer(ball);
+            player.InitPlayer(ball);
             balls[index] = ball;
             index++;
         }
+        if(currentPlayer.GetType().Equals("AiPlayer")){
+            currentPlayer = players[0];
+            
+        }
+        Debug.Log("OnLvlLoaded player type: " + currentPlayer.GetType().ToString());
         currentPlayer.StartTurn();
     }
 
@@ -71,17 +76,27 @@ public class PlayerController : MonoBehaviour
                 } else {
                     currentPlayer = players[index+1];
                 }
-                
+
                 foreach (var oneBall in balls)
                 {
                     oneBall.ActivateBall(false);
                 }
-
                 OnChangePlayer.Invoke(currentPlayer);
-                currentPlayer.StartTurn();
+
+                if(currentPlayer.GetType() == typeof(AiPlayer)) {
+                    StartCoroutine(botWait(currentPlayer));
+                   
+                } else {
+                    currentPlayer.StartTurn();
+                }
                 return;
             }
             index++;
         }
+    }
+    public IEnumerator botWait(Player player) {
+        yield return new WaitForSeconds(1);
+        player.StartTurn();
+        Debug.Log("Bot start turn");
     }
 }

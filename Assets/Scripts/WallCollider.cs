@@ -10,7 +10,7 @@ public class WallCollider : MonoBehaviour
     public EdgeCollider2D edgeCollider2D;
     List<Vector2> points = new List<Vector2>();
     void Start()
-    {
+    {   
         Vector3[] positions = new Vector3[lineRenderer.positionCount];
         lineRenderer.GetPositions(positions);
         
@@ -19,7 +19,6 @@ public class WallCollider : MonoBehaviour
             points.Add(pointTmp);
         }
         edgeCollider2D.points = points.ToArray();
-        OnColiderDrowed.Invoke();
+        AstarPath.active.Scan();
     }
-
 }
