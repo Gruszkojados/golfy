@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
 {   
     public static event Action OnAnyBallStop = () => { };
     public event Action<Ball> OnBallStoped = (_) => { }; 
-    public static event Action<float, float> OnBallChangePosition = (x, y) => {};
+    public static event Action<Vector2> OnBallChangePosition = (vec) => {};
     Rigidbody2D rigid;
     bool isMoving;
     public GameObject rotationBar;
@@ -18,20 +18,18 @@ public class Ball : MonoBehaviour
     public Seeker seeker;
     public Animator animator;
     bool isSupscribed = false;
-
+    [HideInInspector]
     bool canRotate = true;
     void Awake() {
+        Debug.Log("Awake dla pilki");
         rigid = GetComponent<Rigidbody2D>();
         ForceButton.OnChangeForce += StopBallRotate;
         seeker = GetComponent<Seeker>();
     }
 
-    private void Start() {
-        OnBallChangePosition.Invoke(transform.position.x, transform.position.y);
-    }
-
     private void OnDestroy() {
         if(isSupscribed) {
+            Debug.Log("pilka została odsubskrybowana");
             ShootButton.OnShoot -= Shoot;
             TouchInput.OnDrag -= Rotate;
         }
@@ -39,6 +37,7 @@ public class Ball : MonoBehaviour
     }
 
     public void SupscribeTouchCtl() {
+        Debug.Log("Zaczyna HumanPlayer, pilka zostala zasubskrybowana");
         isSupscribed = true;
         ShootButton.OnShoot += Shoot;
         TouchInput.OnDrag += Rotate;
@@ -50,11 +49,10 @@ public class Ball : MonoBehaviour
             animator.SetBool("isMove", false);
             return;
         }
-        OnBallChangePosition.Invoke(transform.position.x, transform.position.y);
+        OnBallChangePosition.Invoke(transform.position);
 
         if(rigid.velocity.sqrMagnitude < 0.4f) {
             isMoving = false;
-            ShowRotationBar();
             LetBallRotate();
             OnAnyBallStop.Invoke();
             OnBallStoped.Invoke(this);
@@ -62,9 +60,12 @@ public class Ball : MonoBehaviour
     }
 
     void Rotate(float rotate) {
+        Debug.Log("Rotate dziala");
         if(!canRotate) {
+            //Debug.Log("Can't rotate");
             return;
         }
+        //Debug.Log("Rotate");
         if(rotate>0) {
             RotateRight(rotate);
         } else {
@@ -77,12 +78,13 @@ public class Ball : MonoBehaviour
     }
 
     public void Shoot(float power) {
+        Debug.Log("dlaczego ten shoot dziala Shoot");
         Shoot(power, transform.up);
     }
 
     public void Shoot(float power, Vector2 direction) {
         isMoving = true;
-        HideRotationBar();
+        RotationBarDisplay(false);
         rigid.AddForce(direction * power, ForceMode2D.Impulse);
     }
 
@@ -92,11 +94,8 @@ public class Ball : MonoBehaviour
     public void RotateRight(float rotaterForce) {
         transform.Rotate(new Vector3(0,0,-1 * -rotaterForce));
     }
-    void HideRotationBar() {
-        rotationBar.SetActive(false);
-    }
-    void ShowRotationBar() {
-        rotationBar.SetActive(true);
+    public void RotationBarDisplay(bool isVisible) {
+        rotationBar.SetActive(isVisible);
     }
 
     void LetBallRotate() {

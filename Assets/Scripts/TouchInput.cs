@@ -49,6 +49,7 @@ public class TouchInput : MonoBehaviour
 
     void Touch()
     {
+
         if (isDragging)
         {
             return;
@@ -58,7 +59,8 @@ public class TouchInput : MonoBehaviour
     }
 
     void Rotate()
-    {
+    {   
+        Debug.Log("Rotate TouchInput");
         var touch = Input.GetTouch(0);
         var touchX = touch.position.x;
         

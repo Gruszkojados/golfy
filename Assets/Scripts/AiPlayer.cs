@@ -38,7 +38,6 @@ public class AiPlayer : Player
                     RaycastHit2D hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y), new Vector2(q.x, q.y), distance);
                     if(hit.collider != null) {
                         q = new Quaternion(lastCorrectPoint.x - ball.transform.position.x, lastCorrectPoint.y - ball.transform.position.y, 0 , 0).normalized;
-                        
                         float skaleOfFails = 0.001f;
                         float random = Random.Range(1, 100) * skaleOfFails;
                         if(q.x > 0) {

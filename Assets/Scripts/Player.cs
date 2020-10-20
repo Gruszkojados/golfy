@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Player
 {   
     public event Action OnTunrFinished = () => {};
-    protected Ball ball;
+    public Ball ball;
     public virtual void InitPlayer(Ball ball) {
         if(ball!=null) {
             ball.OnBallStoped -= OnBallStoped;
@@ -14,6 +14,7 @@ public abstract class Player
         this.ball = ball;
         ball.OnBallStoped += OnBallStoped;
     }
+    
 
     private void OnDestroy() {
         ball.OnBallStoped -= OnBallStoped;
@@ -24,7 +25,7 @@ public abstract class Player
     }
 
     public virtual void StartTurn() {
-        Debug.Log("Aktywowanie piłki");
         ball.ActivateBall(true);
     }
+    
 }

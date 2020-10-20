@@ -9,7 +9,7 @@ public class ShootButton : MonoBehaviour
 
     public ChargeBar chargeBar;
     public void Shoot(){
-        OnShoot(chargeBar.chargePower);
+        OnShoot.Invoke(chargeBar.chargePower);
         gameObject.SetActive(false);
     }
 

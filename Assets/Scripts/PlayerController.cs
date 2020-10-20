@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public Ball ballPrefab;
     Player currentPlayer;
     Player[] players;
-
     Ball[] balls;
 
     private void Awake() {
@@ -24,6 +23,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void InitPlayers() {
+        
         switch (PlayerProfile.gameMode)
         {
             case Gamemode.singlePlayer: 
@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
             default:
                 break;
         }
-        currentPlayer = players[0];
     }
 
     void OnLvlLoaded(Lvl _, int __) {
@@ -55,14 +54,14 @@ public class PlayerController : MonoBehaviour
             Ball ball = Instantiate(ballPrefab);
             ball.ActivateBall(false);
             player.InitPlayer(ball);
+            ball.RotationBarDisplay(false);
             balls[index] = ball;
             index++;
         }
-        if(currentPlayer.GetType().Equals("AiPlayer")){
-            currentPlayer = players[0];
-            
+        if(players.Length>1) {
+            players[1].ball.transform.position = new Vector3(4f,0f,0f);
         }
-        Debug.Log("OnLvlLoaded player type: " + currentPlayer.GetType().ToString());
+        currentPlayer = players[0];
         currentPlayer.StartTurn();
     }
 
