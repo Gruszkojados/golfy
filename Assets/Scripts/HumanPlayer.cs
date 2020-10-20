@@ -6,7 +6,6 @@ public class HumanPlayer : Player
 {
     public override void InitPlayer(Ball ball) {
         base.InitPlayer(ball);
-        //ball.RotationBarDisplay(true);
         ball.SupscribeTouchCtl();
     }
 
