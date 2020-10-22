@@ -20,6 +20,9 @@ public class Hole : MonoBehaviour
     public void WhereIsHole() {
         HoleInitioalPosition.Invoke(holePosition);
     }
+    private void OnTriggerStay2D(Collider2D other) {
+        
+    }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag=="Ball"){
             Ball ball = other.gameObject.GetComponent<Ball>();

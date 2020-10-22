@@ -20,7 +20,6 @@ public class LvlController : MonoBehaviour
     {
         LoadLvl(LoadLevelType.fromPlayerProfile);
     }
-
     void Awake() {
         Hole.onBallInHole += lvlComplited;
     }
@@ -32,13 +31,9 @@ public class LvlController : MonoBehaviour
         OnLvlComplited.Invoke(lvlIndex);
         LoadLvl(LoadLevelType.nextLvl);
     }
-
-    
-
     public void Reloadlvl() {
         LoadLvl(LoadLevelType.currentLvl);
     }
-
     void LoadLvl(LoadLevelType loadLvlType) {
         HideQuickGameMenu(0);
         lvlComplited();

@@ -68,11 +68,12 @@ public class LevelData
 
     public static LevelData LoadData() {
         if(!PlayerPrefs.HasKey(classKey)) {
-            new LevelData().SaveScore();
+            var ld = new LevelData();
+            ld.scoreList.Add(0);
+            ld.SaveScore();
         };
         string json = PlayerPrefs.GetString(classKey);
         LevelData allScoresTemp = JsonUtility.FromJson<LevelData>(json);
-        
         return allScoresTemp;
     } 
 

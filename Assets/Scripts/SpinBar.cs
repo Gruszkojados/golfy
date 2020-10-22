@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class SpinBar : MonoBehaviour
 {
-    Vector3 vector;
-    void Start() {
-        vector = new Vector3(0f,0f,6f);    
-    }
-    void FixedUpdate() {
-        transform.Rotate(vector);
+    public Vector3 vector = new Vector3(0f,0f,100f);
+    void Update() {
+        transform.Rotate(vector * Time.deltaTime);
     }
     
 }

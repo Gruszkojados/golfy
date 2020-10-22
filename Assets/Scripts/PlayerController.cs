@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         balls = new Ball[players.Length];
         int index = 0;
         foreach (var player in players)
-        {
+        {   
             Ball ball = Instantiate(ballPrefab);
             ball.ActivateBall(false);
             player.InitPlayer(ball);
@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
             players[1].ball.transform.position = new Vector3(4f,0f,0f);
         }
         currentPlayer = players[0];
+        OnChangePlayer.Invoke(currentPlayer);
         currentPlayer.StartTurn();
     }
 
@@ -84,7 +85,6 @@ public class PlayerController : MonoBehaviour
 
                 if(currentPlayer.GetType() == typeof(AiPlayer)) {
                     StartCoroutine(botWait(currentPlayer));
-                   
                 } else {
                     currentPlayer.StartTurn();
                 }
