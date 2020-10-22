@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,7 +11,7 @@ public class PlayerController : MonoBehaviour
     Ball[] balls;
 
     private void Awake() {
-        Debug.Log("Player kontroller jest inicjowany");
+        //Debug.Log("Player kontroller jest inicjowany");
         LvlController.OnLvlLoaded += OnLvlLoaded;
         Ball.OnAnyBallStop += OnBallStoped;
         InitPlayers();
@@ -23,7 +22,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void InitPlayers() {
-        
+        //Debug.Log("INICJUJE GRACZY !");
         switch (PlayerProfile.gameMode)
         {
             case Gamemode.singlePlayer: 
@@ -41,6 +40,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnLvlLoaded(Lvl _, int __) {
+        //Debug.Log("PC ON LVL LOADED");
         if(balls!=null) {
             foreach (var item in balls)
             {

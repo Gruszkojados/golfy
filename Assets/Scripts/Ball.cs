@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using golf;
 using System;
 using Pathfinding;
@@ -25,11 +23,12 @@ public class Ball : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         ForceButton.OnChangeForce += StopBallRotate;
         seeker = GetComponent<Seeker>();
+        OnBallChangePosition.Invoke(transform.position);
     }
 
     private void OnDestroy() {
         if(isSupscribed) {
-            Debug.Log("pilka została odsubskrybowana");
+            Debug.Log("Players human DESTROY");
             ShootButton.OnShoot -= Shoot;
             TouchInput.OnDrag -= Rotate;
         }
@@ -37,35 +36,32 @@ public class Ball : MonoBehaviour
     }
 
     public void SupscribeTouchCtl() {
-        Debug.Log("Zaczyna HumanPlayer, pilka zostala zasubskrybowana");
-        isSupscribed = true;
+        Debug.Log("Player subskrybuje shoot i rotation");
         ShootButton.OnShoot += Shoot;
         TouchInput.OnDrag += Rotate;
+        isSupscribed = true;
     }
 
     private void Update() {
-        
         if(!isMoving) {
             animator.SetBool("isMove", false);
             return;
         }
         OnBallChangePosition.Invoke(transform.position);
 
-        if(rigid.velocity.sqrMagnitude < 0.4f) {
+        if(rigid.velocity.sqrMagnitude < 0.2f) {
             isMoving = false;
             LetBallRotate();
             OnAnyBallStop.Invoke();
             OnBallStoped.Invoke(this);
+
         }
     }
 
     void Rotate(float rotate) {
-        Debug.Log("Rotate dziala");
         if(!canRotate) {
-            //Debug.Log("Can't rotate");
             return;
         }
-        //Debug.Log("Rotate");
         if(rotate>0) {
             RotateRight(rotate);
         } else {
@@ -78,7 +74,7 @@ public class Ball : MonoBehaviour
     }
 
     public void Shoot(float power) {
-        Debug.Log("dlaczego ten shoot dziala Shoot");
+        Debug.Log("dlaczego ten shoot dziala Shoot ?!");
         Shoot(power, transform.up);
     }
 

@@ -6,29 +6,20 @@ using UnityEngine;
 public class GameQuickHomeButton : MonoBehaviour
 {   
     private void Awake() {
-        ShootButton.OnShoot += HideButton;
-        Ball.OnAnyBallStop += Show_1;
-        LvlController.OnLvlLoaded += Show_2;
+        Ball.OnAnyBallStop += HideButton;
+        HumanPlayer.OnHumanStartTurn += ShowButton;
     }
 
     private void OnDestroy() {
-        ShootButton.OnShoot -= HideButton;
-        Ball.OnAnyBallStop -= Show_1;
-        LvlController.OnLvlLoaded -= Show_2;
+        HumanPlayer.OnHumanStartTurn -= ShowButton;
+        Ball.OnAnyBallStop -= HideButton;
     }
 
     void ShowButton() {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
     }
 
-    void Show_1() {
-        ShowButton();
-    }
-    void Show_2(Lvl _, int __) {
-        ShowButton();
-    }
-
-    void HideButton(float _) {
-        gameObject.SetActive(false);
+    void HideButton() {
+        //gameObject.SetActive(false);
     }
 }

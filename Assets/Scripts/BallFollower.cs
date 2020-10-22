@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BallFollower : MonoBehaviour
 {   
@@ -8,11 +6,10 @@ public class BallFollower : MonoBehaviour
     private void Awake() {
         Ball.OnBallChangePosition += ChangePosition;
         PlayerController.OnChangePlayer += ChangePosition;
-        
     }
     private void OnDestroy() {
         Ball.OnBallChangePosition -= ChangePosition;
-        PlayerController.OnChangePlayer += ChangePosition;
+        PlayerController.OnChangePlayer -= ChangePosition;
     }
 
     void ChangePosition(Vector2 vec) {
