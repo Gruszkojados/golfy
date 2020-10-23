@@ -96,6 +96,6 @@ public class PlayerController : MonoBehaviour
     public IEnumerator botWait(Player player) {
         yield return new WaitForSeconds(1);
         player.StartTurn();
-        Debug.Log("Bot start turn");
+        //Debug.Log("Bot start turn");
     }
 }

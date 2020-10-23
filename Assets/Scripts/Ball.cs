@@ -19,7 +19,7 @@ public class Ball : MonoBehaviour
     [HideInInspector]
     bool canRotate = true;
     void Awake() {
-        Debug.Log("Awake dla pilki");
+        //Debug.Log("Awake dla pilki");
         rigid = GetComponent<Rigidbody2D>();
         ForceButton.OnChangeForce += StopBallRotate;
         seeker = GetComponent<Seeker>();
@@ -28,7 +28,7 @@ public class Ball : MonoBehaviour
 
     private void OnDestroy() {
         if(isSupscribed) {
-            Debug.Log("Players human DESTROY");
+            //Debug.Log("Players human DESTROY");
             ShootButton.OnShoot -= Shoot;
             TouchInput.OnDrag -= Rotate;
         }
@@ -36,7 +36,7 @@ public class Ball : MonoBehaviour
     }
 
     public void SupscribeTouchCtl() {
-        Debug.Log("Player subskrybuje shoot i rotation");
+        //Debug.Log("Player subskrybuje shoot i rotation");
         ShootButton.OnShoot += Shoot;
         TouchInput.OnDrag += Rotate;
         isSupscribed = true;
@@ -74,7 +74,7 @@ public class Ball : MonoBehaviour
     }
 
     public void Shoot(float power) {
-        Debug.Log("dlaczego ten shoot dziala Shoot ?!");
+        //Debug.Log("dlaczego ten shoot dziala Shoot ?!");
         Shoot(power, transform.up);
     }
 

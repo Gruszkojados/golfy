@@ -48,7 +48,7 @@ public class LvlController : MonoBehaviour
         currentLvl = Instantiate(lvlList.levels[lvlIndex]);
         lvlComplitedObject.SetActive(false);
         forceButton.SetActive(true);
-        Debug.Log("Załadowano poziom !");
+        //Debug.Log("Załadowano poziom !");
         OnLvlLoaded.Invoke(currentLvl, lvlIndex);
     }
 

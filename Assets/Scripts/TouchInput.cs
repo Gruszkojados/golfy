@@ -81,6 +81,7 @@ public class TouchInput : MonoBehaviour
 
     void Click()
     {
+        Debug.Log("Click");
         OnTouch.Invoke();
     }
 

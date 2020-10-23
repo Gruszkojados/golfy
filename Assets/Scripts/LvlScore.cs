@@ -52,8 +52,9 @@ public class LvlScore : MonoBehaviour
 
     void OnLvlLoaded(Lvl _, int index) {
         numberOfLvlScore = 0;
-        currentLvlIndex = index;
-        OnLoadScore.Invoke(currentLvlIndex, allScores.scoreList[currentLvlIndex]);
+        currentLvlIndex = index;    
+        var highScore = currentLvlIndex >= allScores.scoreList.Count ? 10 : allScores.scoreList[currentLvlIndex];
+        OnLoadScore.Invoke(currentLvlIndex, highScore);
     }
 }
 
@@ -69,7 +70,7 @@ public class LevelData
     public static LevelData LoadData() {
         if(!PlayerPrefs.HasKey(classKey)) {
             var ld = new LevelData();
-            ld.scoreList.Add(0);
+            ld.scoreList.Add(1000);
             ld.SaveScore();
         };
         string json = PlayerPrefs.GetString(classKey);
