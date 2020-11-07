@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Hole : MonoBehaviour
 {   
-    public static event Action onBallInHole = () => {};
+    public static event Action<bool> onBallInHole = (isBot) => {};
     Vector2 holePosition;
     public static event Action<Vector2> HoleInitioalPosition  = (vector) => {};
 
@@ -17,20 +17,20 @@ public class Hole : MonoBehaviour
         Ball.OnAnyBallStop -= WhereIsHole;
     }
 
-    public void WhereIsHole() {
+    public void WhereIsHole() { 
         HoleInitioalPosition.Invoke(holePosition);
     }
     private void OnTriggerStay2D(Collider2D other) {
         
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag=="Ball"){
+        if(other.tag=="Ball") {
             Ball ball = other.gameObject.GetComponent<Ball>();
             if(ball==null) {
                 return;
             }
             ball.gameObject.SetActive(false);
-            onBallInHole.Invoke();
+            onBallInHole.Invoke(ball.getOwner());
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ForceButton : MonoBehaviour
@@ -10,6 +8,7 @@ public class ForceButton : MonoBehaviour
     public GameObject[] objectsToEnable;
 
     public void Setfoce() {
+        SoundsAction.SetForce();
         foreach (var item in objectsToEnable)
         {
             item.SetActive(true);
@@ -20,19 +19,19 @@ public class ForceButton : MonoBehaviour
 
     private void Awake() {
         ShootButton.OnShoot += HideButton;
-        Ball.OnAnyBallStop += ShowForceButton;
-        LvlController.OnShowQuickMenu += HideButton;
+        HumanPlayer.OnHumanStartTurn += ShowForceButton;
         LvlController.OnHideQuickMenu += ShowForceButton;
+        LvlController.OnResetLvl += ShowForceButton;
     }
 
     private void OnDestroy() {
         ShootButton.OnShoot -= HideButton;
-        Ball.OnAnyBallStop -= ShowForceButton;
-        LvlController.OnShowQuickMenu -= HideButton;
+        HumanPlayer.OnHumanStartTurn -= ShowForceButton;
         LvlController.OnHideQuickMenu -= ShowForceButton;
+        LvlController.OnResetLvl -= ShowForceButton;
     }
 
-    void HideButton(float power) {
+    void HideButton(float _) {
         gameObject.SetActive(false);
     }
 

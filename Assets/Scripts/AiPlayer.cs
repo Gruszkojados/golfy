@@ -1,9 +1,9 @@
 ﻿using Pathfinding;
 using UnityEngine;
 
-
 public class AiPlayer : Player
 {   
+    float maxVelocity = 115f;
     public override void StartTurn() {
         base.StartTurn();
         AstarPath.active.Scan();
@@ -14,12 +14,13 @@ public class AiPlayer : Player
     public void OnPathComplete (Path p) {
         if (p.error) {
             Debug.Log("No path: " + p.errorLog);
+            this.StartTurn();
         } else {
             Path path = ball.seeker.GetCurrentPath();
             Vector3 lastCorrectPoint = new Vector3(1,1,0);
             if(path.vectorPath.Count <= 4) {
-                Vector2 q = new Vector2(path.vectorPath[3].x - ball.transform.position.x, path.vectorPath[3].y - ball.transform.position.y).normalized;
-                ball.Shoot(Vector2.Distance(ball.transform.position, path.vectorPath[3]) * Random.Range(1.8f, 3f),q);
+                Vector2 vec = new Vector2(path.vectorPath[3].x - ball.transform.position.x, path.vectorPath[3].y - ball.transform.position.y).normalized;
+                ball.Shoot(Vector2.Distance(ball.transform.position, path.vectorPath[3]) * Random.Range(1.8f, 3f),vec);
             } else {
                 ball.ballColider.enabled = false;
                 foreach (var item in path.vectorPath) {
@@ -27,6 +28,10 @@ public class AiPlayer : Player
                     float distance = Vector2.Distance(ball.transform.position, item);
                     RaycastHit2D hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y),q , distance);
                     if(hit.collider != null) {
+
+                        Debug.DrawLine(new Vector2(ball.transform.position.x, ball.transform.position.y), hit.point, Color.white, 10f);
+                        Debug.DrawLine(hit.point, bounceDirection(q), Color.red, 10f);
+                        
                         q = new Vector2(lastCorrectPoint.x - ball.transform.position.x, lastCorrectPoint.y - ball.transform.position.y).normalized;
                         float skaleOfFails = 0.001f;
                         float random = Random.Range(1, 100) * skaleOfFails;
@@ -40,7 +45,12 @@ public class AiPlayer : Player
                         } else {
                             q.y += -random;
                         }
-                        ball.Shoot(Vector2.Distance(ball.transform.position, lastCorrectPoint) * Random.Range(2.4f, 5f),q);
+                        float velocity = Vector2.Distance(ball.transform.position, lastCorrectPoint) * Random.Range(2.4f, 5f);
+                        if(velocity > maxVelocity) {
+                            velocity = maxVelocity;
+                        }
+
+                        ball.Shoot(velocity, q);
                         ball.ballColider.enabled = true;
                         return;
                     }
@@ -48,5 +58,18 @@ public class AiPlayer : Player
                 }
             }
         }
+    }
+
+    Vector2 bounceDirection(Vector2 vec) {
+        if(vec.x>0 && vec.y>0) {
+            vec.y = -vec.y;
+        } else if (vec.x>0 && vec.y<0) {
+            vec.x = -vec.x;
+        } else if (vec.x<0 && vec.y<0) {
+            vec.y = -vec.y;
+        } else if (vec.x<0 && vec.y>0) {
+            vec.x = -vec.x;
+        }
+        return vec;
     }
 }

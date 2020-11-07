@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class LevelNumberText : MonoBehaviour
@@ -8,7 +6,7 @@ public class LevelNumberText : MonoBehaviour
     TextMeshProUGUI textMeshProUGUI;
 
     void Awake() {
-        textMeshProUGUI = GetComponent<TextMeshProUGUI>();  // pobieranie komponentu po jego typie
+        textMeshProUGUI = GetComponent<TextMeshProUGUI>();
         LvlController.OnLvlLoaded += SetLevelNumber;
     }
     void OnDestroy() {

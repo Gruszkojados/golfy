@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class PlayerProfile
+﻿public static class PlayerProfile
 {
     public static int levelIndex;
     public static Gamemode gameMode;
+    public static bool music;
+    public static bool sounds;
 }
 
 public enum Gamemode

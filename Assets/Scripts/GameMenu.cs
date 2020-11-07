@@ -28,8 +28,4 @@ public class GameMenu : MonoBehaviour
         PlayerProfile.gameMode = Gamemode.bot;
         HideButtons();
     }
-
-    public void ShowSettingsButton() {
-
-    }
 }

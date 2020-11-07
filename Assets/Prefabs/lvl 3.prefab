@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3172285054127998056}
   - component: {fileID: 3172285054127998059}
   - component: {fileID: 3172285054127998058}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: sciana glowna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3172285055945408309}
   - component: {fileID: 1677076891829332291}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ PrefabInstance:
     - target: {fileID: 6999901413573485515, guid: 144a38af5074b17438ac4f66e22cd822,
         type: 3}
       propertyPath: m_Layer
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 144a38af5074b17438ac4f66e22cd822, type: 3}

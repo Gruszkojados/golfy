@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,16 +28,19 @@ public class LvlScore : MonoBehaviour
         Hole.onBallInHole -= UpdateHighScore;
     }
 
-    void UpdateHighScore() {
-        if(allScores.scoreList.Count > currentLvlIndex) {
-            if(allScores.scoreList[currentLvlIndex] > numberOfLvlScore) {
-                allScores.scoreList[currentLvlIndex] = numberOfLvlScore;
+    void UpdateHighScore(bool isBot) {
+        if(!isBot) {
+            Debug.Log("Zapisuje punkty");
+            if(allScores.scoreList.Count > currentLvlIndex) {
+                if(allScores.scoreList[currentLvlIndex] > numberOfLvlScore) {
+                    allScores.scoreList[currentLvlIndex] = numberOfLvlScore;
+                }
+            } else {
+                allScores.scoreList.Add(numberOfLvlScore);
             }
-        } else {
-            allScores.scoreList.Add(numberOfLvlScore);
+            bestScoreText.SetBestScoreText(allScores.scoreList[currentLvlIndex]);
+            allScores.SaveScore();
         }
-        bestScoreText.SetBestScoreText(allScores.scoreList[currentLvlIndex]);
-        allScores.SaveScore();
     }
 
     void LoadScore() {

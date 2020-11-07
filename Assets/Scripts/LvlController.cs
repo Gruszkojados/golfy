@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,10 +8,12 @@ public class LvlController : MonoBehaviour
     public static event Action<int> OnLvlComplited = (index) => {};
     public static event Action<float> OnShowQuickMenu = (_) => {};
     public static event Action OnHideQuickMenu = () => {};
+    public static event Action OnResetLvl = () => {};
     public LvlList lvlList;
     Lvl currentLvl;
     int lvlIndex;
     public GameObject lvlComplitedObject;
+    public GameObject lvlLostObject;
     public GameObject quickMenuObject;
     public GameObject forceButton;
     void Start()
@@ -28,15 +28,18 @@ public class LvlController : MonoBehaviour
         Hole.onBallInHole -= lvlComplited;
     }
     public void ChangeLvl() {
+        SoundsAction.ButtonClick();
         OnLvlComplited.Invoke(lvlIndex);
         LoadLvl(LoadLevelType.nextLvl);
     }
     public void Reloadlvl() {
+        SoundsAction.ButtonClick();
+        OnResetLvl.Invoke();
         LoadLvl(LoadLevelType.currentLvl);
     }
     void LoadLvl(LoadLevelType loadLvlType) {
         HideQuickGameMenu(0);
-        lvlComplited();
+        //lvlComplited(false);
         if(currentLvl!=null) {      
             Destroy(currentLvl.gameObject);
         }
@@ -47,25 +50,39 @@ public class LvlController : MonoBehaviour
         }
         currentLvl = Instantiate(lvlList.levels[lvlIndex]);
         lvlComplitedObject.SetActive(false);
+        lvlLostObject.SetActive(false);
         forceButton.SetActive(true);
-        //Debug.Log("Załadowano poziom !");
         OnLvlLoaded.Invoke(currentLvl, lvlIndex);
     }
 
-    void lvlComplited() {
-        lvlComplitedObject.SetActive(true);
+    void lvlComplited(bool isBot) {
+        if(isBot) {
+            SoundsAction.Lost();
+            lvlLostObject.SetActive(true);
+        } else {
+            SoundsAction.Win();
+            lvlComplitedObject.SetActive(true);
+        }
     }
 
     public void GoToHome() {
-        SceneManager.LoadScene(0);
+        SoundsAction.ButtonClick();
+        SceneManager.LoadScene(0);  
     }
 
     public void ShowQuickGameMenu() {
-        quickMenuObject.SetActive(true);
+        SoundsAction.ButtonClick();
+        if(quickMenuObject.activeSelf) {
+            quickMenuObject.SetActive(false);
+        } else {
+            quickMenuObject.SetActive(true);
+        }
+        
         OnShowQuickMenu.Invoke(0);
     }
 
     public void HideQuickGameMenu(float _) {
+        SoundsAction.ButtonClick();
         quickMenuObject.SetActive(false);
         OnHideQuickMenu.Invoke();
     }

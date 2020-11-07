@@ -5,8 +5,8 @@ using Pathfinding;
 
 public class Ball : MonoBehaviour
 {   
-    public static event Action OnAnyBallStop = () => { };
-    public event Action<Ball> OnBallStoped = (_) => { }; 
+    public static event Action OnAnyBallStop = () => {};
+    public event Action<Ball> OnBallStoped = (_) => {};
     public static event Action<Vector2> OnBallChangePosition = (vec) => {};
     Rigidbody2D rigid;
     bool isMoving;
@@ -17,18 +17,17 @@ public class Ball : MonoBehaviour
     public Animator animator;
     bool isSupscribed = false;
     [HideInInspector]
+    bool isBotBall = false;
     bool canRotate = true;
     void Awake() {
-        //Debug.Log("Awake dla pilki");
         rigid = GetComponent<Rigidbody2D>();
         ForceButton.OnChangeForce += StopBallRotate;
         seeker = GetComponent<Seeker>();
         OnBallChangePosition.Invoke(transform.position);
     }
 
-    private void OnDestroy() {
+    void OnDestroy() {
         if(isSupscribed) {
-            //Debug.Log("Players human DESTROY");
             ShootButton.OnShoot -= Shoot;
             TouchInput.OnDrag -= Rotate;
         }
@@ -36,17 +35,17 @@ public class Ball : MonoBehaviour
     }
 
     public void SupscribeTouchCtl() {
-        //Debug.Log("Player subskrybuje shoot i rotation");
         ShootButton.OnShoot += Shoot;
         TouchInput.OnDrag += Rotate;
         isSupscribed = true;
     }
 
-    private void Update() {
+    void Update() {
         if(!isMoving) {
             animator.SetBool("isMove", false);
             return;
-        }
+        }        
+
         OnBallChangePosition.Invoke(transform.position);
 
         if(rigid.velocity.sqrMagnitude < 0.2f) {
@@ -74,11 +73,11 @@ public class Ball : MonoBehaviour
     }
 
     public void Shoot(float power) {
-        //Debug.Log("dlaczego ten shoot dziala Shoot ?!");
         Shoot(power, transform.up);
     }
 
     public void Shoot(float power, Vector2 direction) {
+        SoundsAction.Shoot();
         isMoving = true;
         RotationBarDisplay(false);
         rigid.AddForce(direction * power, ForceMode2D.Impulse);
@@ -100,5 +99,12 @@ public class Ball : MonoBehaviour
 
     void StopBallRotate() {
         canRotate = false;
+    }
+
+    public void setOwner(bool isBot) {
+        isBotBall = isBot;
+    }
+    public bool getOwner() {    
+        return isBotBall;
     }
 }

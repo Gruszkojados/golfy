@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class ChargeBar : MonoBehaviour
 {
-    //public static event Action OnCharge = () => { };
-
-    public UnityEngine.UI.Image image;
     bool up = true;
     float chargeValue = 1f;
     public float chargePower { 
@@ -40,7 +37,7 @@ public class ChargeBar : MonoBehaviour
         transform.localScale = new Vector3(20, chargeValue, 0);
     }
 
-    void HideChargeBar(float power) {
+    void HideChargeBar(float _) {
         gameObject.SetActive(false);
     }
 
