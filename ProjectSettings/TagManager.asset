@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Sand
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - 
   - 
   - A* layer
-  - 
+  - SlowerLayer
   - 
   - 
   - 
@@ -42,6 +43,12 @@ TagManager:
   - name: Background
     uniqueID: 852271975
     locked: 0
+  - name: Slower
+    uniqueID: 4020156263
+    locked: 0
+  - name: Wall
+    uniqueID: 1889293539
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
@@ -56,4 +63,7 @@ TagManager:
     locked: 0
   - name: Gizmos
     uniqueID: 3431785789
+    locked: 0
+  - name: New Layer
+    uniqueID: 2340495347
     locked: 0

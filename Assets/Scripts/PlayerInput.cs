@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
         if(player is HumanPlayer) {
             touchInput.enabled = true;
         } else {
-            touchInput.enabled = false;    
+            touchInput.enabled = false;
         }
     }
 }

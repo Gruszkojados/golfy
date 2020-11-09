@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WallCollider : MonoBehaviour
 {   
-    public static event Action OnColiderDrowed = () => {};
     public LineRenderer lineRenderer;
     public EdgeCollider2D edgeCollider2D;
     List<Vector2> points = new List<Vector2>();

@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class ForceButton : MonoBehaviour
 {
-    public static event Action OnChangeForce = () => { };
-
+    public static event Action OnChangeForce = () => {};
     public GameObject[] objectsToEnable;
-
     public void Setfoce() {
         SoundsAction.SetForce();
         foreach (var item in objectsToEnable)

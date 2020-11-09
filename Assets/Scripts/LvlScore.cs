@@ -30,7 +30,6 @@ public class LvlScore : MonoBehaviour
 
     void UpdateHighScore(bool isBot) {
         if(!isBot) {
-            Debug.Log("Zapisuje punkty");
             if(allScores.scoreList.Count > currentLvlIndex) {
                 if(allScores.scoreList[currentLvlIndex] > numberOfLvlScore) {
                     allScores.scoreList[currentLvlIndex] = numberOfLvlScore;

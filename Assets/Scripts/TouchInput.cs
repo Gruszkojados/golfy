@@ -110,12 +110,10 @@ namespace golf {
         }
 
         void Click() {
-            Debug.Log("Click TouchInput");
             OnTouch.Invoke();
         }
 
         void MouseDrag() {
-            Debug.Log("MouseDrag TouchInput");
             var touchX = Input.mousePosition.x;
             
             if (!isDragging)

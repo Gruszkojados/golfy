@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Hole : MonoBehaviour
@@ -6,8 +7,10 @@ public class Hole : MonoBehaviour
     public static event Action<bool> onBallInHole = (isBot) => {};
     Vector2 holePosition;
     public static event Action<Vector2> HoleInitioalPosition  = (vector) => {};
-
+    public GameObject fullHole;
+    public GameObject emptyHoll;
     private void Start() {
+        ChageHollImage();
         Ball.OnAnyBallStop += WhereIsHole;
         holePosition = new Vector2(transform.position.x, transform.position.y);
         WhereIsHole();
@@ -29,8 +32,27 @@ public class Hole : MonoBehaviour
             if(ball==null) {
                 return;
             }
+            if(ball.velocity > 1500) {
+                return;
+            }
             ball.gameObject.SetActive(false);
-            onBallInHole.Invoke(ball.getOwner());
+            ChageHollImage();
+            SoundsAction.BallInHole();
+            StartCoroutine(Wait(ball));
         }
+    }
+    void ChageHollImage() {
+        if(fullHole.activeSelf) {
+            fullHole.SetActive(false);
+            emptyHoll.SetActive(true);
+        } else {
+            fullHole.SetActive(true);
+            emptyHoll.SetActive(false);
+        }
+    }
+        public IEnumerator Wait(Ball ball) {
+        yield return new WaitForSeconds(0.5f);
+        ChageHollImage();
+        onBallInHole.Invoke(ball.getOwner());
     }
 }

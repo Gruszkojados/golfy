@@ -14,7 +14,6 @@ public class AiPlayer : Player
     public void OnPathComplete (Path p) {
         if (p.error) {
             Debug.Log("No path: " + p.errorLog);
-            this.StartTurn();
         } else {
             Path path = ball.seeker.GetCurrentPath();
             Vector3 lastCorrectPoint = new Vector3(1,1,0);
@@ -24,14 +23,17 @@ public class AiPlayer : Player
             } else {
                 ball.ballColider.enabled = false;
                 foreach (var item in path.vectorPath) {
+
+                    // dla kazdego punku na trasie do dolka szuka najodleglejszej mozliwej kolizji
                     Vector2 q = new Vector2(item.x - ball.transform.position.x, item.y - ball.transform.position.y).normalized;
                     float distance = Vector2.Distance(ball.transform.position, item);
                     RaycastHit2D hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y),q , distance);
-                    if(hit.collider != null) {
 
+                    if(hit.collider != null) {
                         Debug.DrawLine(new Vector2(ball.transform.position.x, ball.transform.position.y), hit.point, Color.white, 10f);
                         Debug.DrawLine(hit.point, bounceDirection(q), Color.red, 10f);
-                        
+
+                        // ustawia kierunek uderzenia, uwzgledaniajac losowy blad celuje w punkt ostatniego "widzianego przez pilke" miejsca bez kolizji
                         q = new Vector2(lastCorrectPoint.x - ball.transform.position.x, lastCorrectPoint.y - ball.transform.position.y).normalized;
                         float skaleOfFails = 0.001f;
                         float random = Random.Range(1, 100) * skaleOfFails;
@@ -45,7 +47,17 @@ public class AiPlayer : Player
                         } else {
                             q.y += -random;
                         }
+
+                        // ustawia sile uderzenia, uwzgledaniajac losowy blad
                         float velocity = Vector2.Distance(ball.transform.position, lastCorrectPoint) * Random.Range(2.4f, 5f);
+                        
+                        // jesli pilka znajduje sie na piasku, zwiksz sile udezenia
+                        hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y),q , distance);
+                        if(hit.collider.tag=="Sand") {
+                            velocity *= 2;
+                        }
+
+                        // jesli wartosc predkosci przekroczy wartosc max dla gracza, ustaw maksymalna wartosc na sztywno
                         if(velocity > maxVelocity) {
                             velocity = maxVelocity;
                         }
