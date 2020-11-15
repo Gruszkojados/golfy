@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ball
   - Sand
+  - Ramp
   layers:
   - Default
   - TransparentFX
@@ -48,6 +49,9 @@ TagManager:
     locked: 0
   - name: Wall
     uniqueID: 1889293539
+    locked: 0
+  - name: Ramp
+    uniqueID: 1382737831
     locked: 0
   - name: Default
     uniqueID: 0

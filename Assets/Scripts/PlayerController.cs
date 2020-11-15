@@ -59,7 +59,8 @@ public class PlayerController : MonoBehaviour
             index++;
         }
         if(players.Length > 1) {
-            players[1].ball.transform.position = new Vector3(4f,0f,0f);
+            players[0].ball.transform.position = new Vector3(-2f,0f,0f);
+            players[1].ball.transform.position = new Vector3(2f,0f,0f);
         }
         currentPlayer = players[0];
         OnChangePlayer.Invoke(currentPlayer);
@@ -79,13 +80,14 @@ public class PlayerController : MonoBehaviour
 
                 foreach (var oneBall in balls)
                 {
+                    
                     oneBall.ActivateBall(false);
                 }
                 SoundsAction.ChangePlayer();
                 OnChangePlayer.Invoke(currentPlayer);
 
                 if(currentPlayer.GetType() == typeof(AiPlayer)) {
-                    StartCoroutine(botWait(currentPlayer));
+                    StartCoroutine(BotWait(currentPlayer));
                 } else {
                     currentPlayer.StartTurn();
                 }
@@ -94,8 +96,8 @@ public class PlayerController : MonoBehaviour
             index++;
         }
     }
-    public IEnumerator botWait(Player player) {
-        yield return new WaitForSeconds(1);
+    public IEnumerator BotWait(Player player) {
+        yield return new WaitForSeconds(1f);
         player.StartTurn();
     }
 }

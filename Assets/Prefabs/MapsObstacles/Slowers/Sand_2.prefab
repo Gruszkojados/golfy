@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1467550489244011672}
   - component: {fileID: 5422038118847464930}
+  - component: {fileID: 3174488728077981193}
   - component: {fileID: 8903802778062428185}
   m_Layer: 9
   m_Name: Sand_2
@@ -68,10 +69,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -274811033
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8fc2f5b616dc6a14cb50d7be18691242, type: 3}
-  m_Color: {r: 0.78572005, g: 0.8490566, b: 0.500623, a: 1}
+  m_Color: {r: 0.78572005, g: 0.8490566, b: 0.500623, a: 0.8392157}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -81,6 +82,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3174488728077981193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458450753131246339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff5382fc1001374bb5d53b25b4d19d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &8903802778062428185
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -91,7 +104,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

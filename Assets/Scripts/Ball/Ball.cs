@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using golf;
-using System;
 using Pathfinding;
 
 public class Ball : MonoBehaviour
 {   
     public float velocity;
-    public static event Action OnAnyBallStop = () => {};
-    public event Action<Ball> OnBallStoped = (_) => {};
-    public static event Action<Vector2> OnBallChangePosition = (vec) => {};
+    public static event System.Action OnAnyBallStop = () => {};
+    public event System.Action<Ball> OnBallStoped = (_) => {};
+    public static event System.Action<Vector2> OnBallChangePosition = (vec) => {};
     Rigidbody2D rigid;
     bool isMoving;
     public GameObject rotationBar;
@@ -20,6 +19,7 @@ public class Ball : MonoBehaviour
     [HideInInspector]
     bool isBotBall = false;
     bool canRotate = true;
+    bool isOnRamp = false;
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
         ForceButton.OnChangeForce += StopBallRotate;
@@ -40,19 +40,33 @@ public class Ball : MonoBehaviour
         TouchInput.OnDrag += Rotate;
         isSupscribed = true;
     }
-    private void OnCollisionEnter2D(Collision2D other) {
+    void OnCollisionEnter2D(Collision2D other) {
         if(other.GetType()!=typeof(Hole) && other.GetType()!=typeof(Ball)) {
             SoundsAction.Bounce();
         }
     }
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.tag=="Ramp") {
+            isOnRamp = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other) {
+        if(other.tag=="Ramp") {
+            isOnRamp = false;
+        }
+    }
     void Update() {
+        
         if(!isMoving) {
-            // animator.SetBool("isMove", false);
             return;
         }        
         OnBallChangePosition.Invoke(transform.position);
         velocity = rigid.velocity.sqrMagnitude;
-        if(velocity < 0.2f) {
+        if(isOnRamp) {
+            return;
+        }
+        if(velocity < 0.4f) {
+            rigid.velocity = new Vector2(0,0);
             isMoving = false;
             LetBallRotate();
             OnAnyBallStop.Invoke();
@@ -86,10 +100,10 @@ public class Ball : MonoBehaviour
         rigid.AddForce(direction * power, ForceMode2D.Impulse);
     }
 
-    public void RotateLeft(float rotaterForce) {
+    void RotateLeft(float rotaterForce) {
         transform.Rotate(new Vector3(0,0,1 * rotaterForce));
     }
-    public void RotateRight(float rotaterForce) {
+    void RotateRight(float rotaterForce) {
         transform.Rotate(new Vector3(0,0,-1 * -rotaterForce));
     }
     public void RotationBarDisplay(bool isVisible) {
@@ -111,12 +125,33 @@ public class Ball : MonoBehaviour
         return isBotBall;
     }
 
-    public void SmallChangeDirection() {
-        // TODO
-        // tutaj jakos ogarnąć jakies losowe odchylenie pilki jesli nadleci ze zbyt duza sila w dolek ...
+    /*### functions for obstacles objects ###*/
+
+    // function for holes
+    public void SmallChangeDirection() { 
+        if(Random.Range(0f, 2f) > 1) {
+            rigid.AddForce(new Vector2(-1000f, 500f));
+        } else {
+            rigid.AddForce(new Vector2(1000f, 500f));
+        }
     }
 
+    // function for ball slowers
     public void SlowVelocity() {
         rigid.velocity = rigid.velocity * 0.9f;
+    }
+
+    // function for ramps
+    public void RollBack(string rampDirection) {
+        if(rampDirection=="down") {
+            rigid.AddForce(new Vector2(20f, -60f));
+        } else if (rampDirection=="up") {
+            rigid.AddForce(new Vector2(20f, 60f));
+        } else if (rampDirection=="left") {
+            rigid.AddForce(new Vector2(-60f, -20f));
+        } else if (rampDirection=="right") {
+            rigid.AddForce(new Vector2(60f, -20f));
+        }
+        
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Hole : MonoBehaviour
 {   
     public static event Action<bool> onBallInHole = (isBot) => {};
-    Vector2 holePosition;
     public static event Action<Vector2> HoleInitioalPosition  = (vector) => {};
+    Vector2 holePosition;
     public GameObject fullHole;
     public GameObject emptyHoll;
     private void Start() {
@@ -33,6 +33,7 @@ public class Hole : MonoBehaviour
                 return;
             }
             if(ball.velocity > 1500) {
+                ball.SmallChangeDirection();
                 return;
             }
             ball.gameObject.SetActive(false);

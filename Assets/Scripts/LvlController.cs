@@ -39,7 +39,7 @@ public class LvlController : MonoBehaviour
     }
     void LoadLvl(LoadLevelType loadLvlType) {
         HideQuickGameMenu(0);
-        //lvlComplited(false);
+        
         if(currentLvl!=null) {      
             Destroy(currentLvl.gameObject);
         }
@@ -47,7 +47,13 @@ public class LvlController : MonoBehaviour
             lvlIndex++;
         } else if (loadLvlType==LoadLevelType.fromPlayerProfile){
             lvlIndex = PlayerProfile.levelIndex;
+            
         }
+
+        if(lvlList.levels.Length < lvlIndex+1) {
+                SceneManager.LoadScene(0);
+        }
+
         currentLvl = Instantiate(lvlList.levels[lvlIndex]);
         lvlComplitedObject.SetActive(false);
         lvlLostObject.SetActive(false);

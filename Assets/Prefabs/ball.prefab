@@ -68,7 +68,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -748470007
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 549de9748b8caee4fbf4ffd5520f1d51, type: 3}
   m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
   m_FlipX: 0
@@ -90,7 +90,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5740961655418589051}
   - component: {fileID: 5740961655418589048}
-  - component: {fileID: 4343918305562946097}
   m_Layer: 0
   m_Name: Direction_Image
   m_TagString: Untagged
@@ -149,9 +148,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -863181507
   m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 81dbbd0afef442444bfbcfbf54a1fa19, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.37327015, b: 0.6320754, a: 0.6431373}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -161,25 +160,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4343918305562946097
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5740961655418589050}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e2269fb0b2a8fe2439312b3e30e9f266, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5740961655563771549
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -748470007
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -305,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6c05b135f732c47968b533e29db74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  velocity: 0
   rotationBar: {fileID: 5740961655418589050}
   ballColider: {fileID: 5740961655563771526}
   seeker: {fileID: 0}
@@ -490,7 +471,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -748470007
   m_SortingLayer: 3
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0d77e7269116c8745a69eacd5747f221, type: 3}
   m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 0.32156864}
   m_FlipX: 0
@@ -613,13 +594,13 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -748470007
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Time: 0.5
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.48215398
+    widthMultiplier: 0.9934729
     widthCurve:
       serializedVersion: 2
       m_Curve:
