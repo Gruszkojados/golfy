@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LvlController : MonoBehaviour
 {   
+    public static event Action OnHomeBack = () => {}; 
     public static event Action<Lvl, int> OnLvlLoaded = (level, index) => {};
     public static event Action<int> OnLvlComplited = (index) => {};
     public static event Action<float> OnShowQuickMenu = (_) => {};
@@ -16,8 +18,11 @@ public class LvlController : MonoBehaviour
     public GameObject lvlLostObject;
     public GameObject quickMenuObject;
     public GameObject forceButton;
+    public GameObject animator;
+    Animator transition;
     void Start()
     {
+        transition = animator.GetComponent<Animator>();
         LoadLvl(LoadLevelType.fromPlayerProfile);
     }
     void Awake() {
@@ -73,7 +78,13 @@ public class LvlController : MonoBehaviour
 
     public void GoToHome() {
         SoundsAction.ButtonClick();
-        SceneManager.LoadScene(0);  
+        StartCoroutine(LoadLvlWait());
+    }
+
+    public IEnumerator LoadLvlWait() {
+        OnHomeBack.Invoke();
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(0);
     }
 
     public void ShowQuickGameMenu() {

@@ -35,8 +35,22 @@ public class AiPlayer : Player
                     RaycastHit2D hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y),q , distance);
                     
                     if(hit.collider != null) {
-                        //Debug.DrawLine(new Vector2(ball.transform.position.x, ball.transform.position.y), hit.point, Color.white, 10f);
-                        //Debug.DrawLine(hit.point, bounceDirection(q), Color.red, 10f);
+                        Debug.Log("Ball angle: " + Vector2.Angle(new Vector2(ball.transform.position.x, ball.transform.position.y), hit.point));
+                        Debug.DrawLine(new Vector2(ball.transform.position.x, ball.transform.position.y), hit.point, Color.white, 10f);
+                        Vector2 bounceDir = bounceDirection(q);
+                        Debug.DrawLine(hit.point, bounceDir, Color.red, 10f);
+                        // Debug.DrawLine(hit.point, bounceDir, Color.red, 10f);
+                        // Debug.DrawLine(hit.point, bounceDir, Color.red, 10f);
+                       
+                        // Vector2.Angle()
+                        // Vector3 rayPosition = new Vector3(transform.position.x, headHeight, transform.position.z);
+                        // Vector2 leftRayRotation = Vector2.AngleAxis(10, hit.point);
+                        // Vector3 rightRayRotation = Quaternion.AngleAxis(fovAngle, transform.up) * transform.forward;
+                        
+                        // //Constructing rays
+                        // Ray rayCenter = new Ray(rayPosition, transform.forward);
+                        // Ray rayLeft = new Ray(hit.point, leftRayRotation);
+                        // Ray rayRight = new Ray(rayPosition, rightRayRotation);
 
                         // ustawia kierunek uderzenia, uwzgledaniajac losowy blad celuje w punkt ostatniego "widzianego przez pilke" miejsca bez kolizji
                         q = new Vector2(lastCorrectPoint.x - ball.transform.position.x, lastCorrectPoint.y - ball.transform.position.y).normalized;

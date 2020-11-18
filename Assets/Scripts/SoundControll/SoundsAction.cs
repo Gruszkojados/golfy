@@ -10,6 +10,7 @@ public static class SoundsAction
     public static event Action OnLost = () => {};
     public static event Action OnChangePlayer = () => {};
     public static event Action OnBallInHole = () => {};
+    public static event Action OnBallSwing = () => {};
     
 
     public static void ButtonClick() {
@@ -44,4 +45,9 @@ public static class SoundsAction
         if(!PlayerProfile.sounds) return;
         OnBallInHole.Invoke();
     }
+    public static void BallSwing() {
+        if(!PlayerProfile.sounds) return;
+        OnBallSwing.Invoke();
+    }
+
 }

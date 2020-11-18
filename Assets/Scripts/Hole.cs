@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Hole : MonoBehaviour
 {   
+    public GameObject slowDown;
+    Animator animSlowDown;
     public static event Action<bool> onBallInHole = (isBot) => {};
     public static event Action<Vector2> HoleInitioalPosition  = (vector) => {};
     Vector2 holePosition;
     public GameObject fullHole;
     public GameObject emptyHoll;
     private void Start() {
+        animSlowDown = slowDown.GetComponent<Animator>();
         ChageHollImage();
         Ball.OnAnyBallStop += WhereIsHole;
         holePosition = new Vector2(transform.position.x, transform.position.y);
@@ -33,6 +36,8 @@ public class Hole : MonoBehaviour
                 return;
             }
             if(ball.velocity > 1500) {
+                SoundsAction.BallSwing();
+                animSlowDown.SetTrigger("Slow");
                 ball.SmallChangeDirection();
                 return;
             }

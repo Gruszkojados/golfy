@@ -13,6 +13,8 @@ public class Sounds : MonoBehaviour
     public AudioSource bounce_1;
     public AudioSource bounce_2;
     public AudioSource ballInHole;
+    public AudioSource swing;
+
 
     private void Awake() {
         PlayerProfile.LoadSounds();
@@ -21,9 +23,10 @@ public class Sounds : MonoBehaviour
         SoundsAction.OnBounce += BounceSound;
         SoundsAction.OnLost += LostSound;
         SoundsAction.OnWin += WinSound;
-        SoundsAction.OnButtonClick += ButtonClick;
+        SoundsAction.OnButtonClick += ButtonClickSound;
         SoundsAction.OnChangePlayer += ChangePlayerSound;
-        SoundsAction.OnBallInHole += BallInHoleSound;
+        SoundsAction.OnBallInHole += BallInHoleSoundSound;
+        SoundsAction.OnBallSwing += BallSwingSound;
     }
     private void OnDestroy() {
         SoundsAction.OnSetForce -= SetForceSound;
@@ -31,9 +34,10 @@ public class Sounds : MonoBehaviour
         SoundsAction.OnBounce -= BounceSound;
         SoundsAction.OnLost -= LostSound;
         SoundsAction.OnWin -= WinSound;
-        SoundsAction.OnButtonClick -= ButtonClick;
+        SoundsAction.OnButtonClick -= ButtonClickSound;
         SoundsAction.OnChangePlayer -= ChangePlayerSound;
-        SoundsAction.OnBallInHole -= BallInHoleSound;
+        SoundsAction.OnBallInHole -= BallInHoleSoundSound;
+        SoundsAction.OnBallSwing -= BallSwingSound;
     }
     void SetForceSound() {
         setForce.Play();
@@ -54,7 +58,7 @@ public class Sounds : MonoBehaviour
     void WinSound() {
         win.Play();
     }
-    void ButtonClick() {
+    void ButtonClickSound() {
         buttonClick.Play();
     }
     void ChangePlayerSound() {
@@ -68,7 +72,11 @@ public class Sounds : MonoBehaviour
             }
         }
     }
-    void BallInHoleSound() {
+    void BallInHoleSoundSound() {
         ballInHole.Play();
+    }
+
+    void BallSwingSound() {
+        swing.Play();
     }
 }

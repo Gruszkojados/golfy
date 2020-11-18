@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 public class ChargeBar : MonoBehaviour
 {
     bool up = true;
@@ -10,7 +6,7 @@ public class ChargeBar : MonoBehaviour
     public float chargePower { 
         get { 
             return chargeValue/powerDivider; 
-        } 
+        }
     }
     public float powerDivider = 4f;
     public float iterMax = 50f;
@@ -21,6 +17,7 @@ public class ChargeBar : MonoBehaviour
         gameObject.SetActive(false);
         ShootButton.OnShoot += HideChargeBar;
     }
+
     void Update()
     {
         if(up && chargeValue<=iterMax) {

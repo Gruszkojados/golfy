@@ -2,29 +2,22 @@
 
 public class Dancer : MonoBehaviour
 {
-    public float move = 1f;
-    public float maxDistance = 8f;
+    public float maxDistance = 10f;
     bool directionCtrl = true;
-    void Update()
-    {   
-        if(directionCtrl) {
-            Move(true);
-            if(gameObject.transform.position.x > maxDistance) {
-                directionCtrl = false;
-            }
-        } else {
-            Move(false);
-            if(gameObject.transform.position.x < maxDistance) {
-                directionCtrl = true;
-            }
-        }
+    new Rigidbody2D rigidbody;
+    private void Awake() {
+        rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
-
-    void Move(bool direction) {
-        if(direction) {
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x + move, 0, 0);
-        } else {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x - move, 0, 0);
+    private void Start() {
+        rigidbody.AddForce(new Vector2(-500,0));
+    }
+    void FixedUpdate()
+    {   
+        if(gameObject.transform.position.x > maxDistance) {
+            rigidbody.AddForce(new Vector2(-500,0));
+        }
+        if(gameObject.transform.position.x < -maxDistance) {
+            rigidbody.AddForce(new Vector2(500,0));
         }
     }
 }
