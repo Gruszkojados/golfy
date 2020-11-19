@@ -7,7 +7,8 @@ public class ExitGame : MonoBehaviour
     {   
         if(Input.GetKeyDown(KeyCode.Escape)){
             if(Application.platform == RuntimePlatform.Android) {
-                if(SceneManager.GetActiveScene().buildIndex == 1) {
+                int index = SceneManager.GetActiveScene().buildIndex;
+                if(index == 1 || index == 2) {
                     SceneManager.LoadScene(0);
                 } else {
                     Application.Quit();

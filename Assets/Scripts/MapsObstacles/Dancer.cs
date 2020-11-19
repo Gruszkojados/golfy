@@ -3,7 +3,6 @@
 public class Dancer : MonoBehaviour
 {
     public float maxDistance = 10f;
-    bool directionCtrl = true;
     new Rigidbody2D rigidbody;
     private void Awake() {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
