@@ -10,7 +10,11 @@ public class LvlButtonList : MonoBehaviour
         LevelData levelData = LevelData.LoadData();
         int loadedLvls = levelData.scoreList.Count;
         for(int i=0; i<=loadedLvls; i++) {
-            Instantiate(lvlButtonPrefab, transform).Setup("Lvl " + (i+1).ToString(), i);
+            if(loadedLvls>i){
+                Instantiate(lvlButtonPrefab, transform).Setup("Lvl " + (i+1).ToString(), i, levelData.scoreList[i]);
+            } else {
+                Instantiate(lvlButtonPrefab, transform).Setup("Lvl " + (i+1).ToString(), i, 1000);
+            }
         }
         rectTransform = gameObject.GetComponent<RectTransform>();
         if(loadedLvls > 7) {

@@ -6,10 +6,10 @@ public class LvlScore : MonoBehaviour
 {   
     public static event Action<int> OnScoreChange = (number) => {};
     public static event Action<int, int> OnLoadScore = (currentLvl, actualScore) => {};
+    public static event Action<int> OnBestScoreLoaded = (bestScore) => {};
 
     int numberOfLvlScore = 0;
     public LevelData allScores;
-    public BestScoreText bestScoreText;
     int currentLvlIndex;
 
     private void Awake() {
@@ -37,7 +37,7 @@ public class LvlScore : MonoBehaviour
             } else {
                 allScores.scoreList.Add(numberOfLvlScore);
             }
-            bestScoreText.SetBestScoreText(allScores.scoreList[currentLvlIndex]);
+            OnBestScoreLoaded.Invoke(allScores.scoreList[currentLvlIndex]);
             allScores.SaveScore();
         }
     }
@@ -56,6 +56,11 @@ public class LvlScore : MonoBehaviour
         currentLvlIndex = index;    
         var highScore = currentLvlIndex >= allScores.scoreList.Count ? 10 : allScores.scoreList[currentLvlIndex];
         OnLoadScore.Invoke(currentLvlIndex, highScore);
+        if(allScores.scoreList.Count>=currentLvlIndex+1) {
+            OnBestScoreLoaded.Invoke(allScores.scoreList[currentLvlIndex]);
+        } else {
+            OnBestScoreLoaded.Invoke(1000);
+        }
     }
 }
 
