@@ -9,6 +9,7 @@ public class LvlButtonList : MonoBehaviour
     {   
         LevelData levelData = LevelData.LoadData();
         int loadedLvls = levelData.scoreList.Count;
+        Debug.Log("Tryb: " + PlayerProfile.gameMode);
         for(int i=0; i<=loadedLvls; i++) {
             if(loadedLvls>i){
                 Instantiate(lvlButtonPrefab, transform).Setup("Lvl " + (i+1).ToString(), i, levelData.scoreList[i]);

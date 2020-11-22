@@ -23,7 +23,6 @@ public abstract class Player
     }
 
     public virtual void StartTurn() {
-        Debug.Log("Aktywuje pilke");
         ball.ActivateBall(true);
     }
     

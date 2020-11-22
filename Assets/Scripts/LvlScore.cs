@@ -28,8 +28,8 @@ public class LvlScore : MonoBehaviour
         Hole.onBallInHole -= UpdateHighScore;
     }
 
-    void UpdateHighScore(bool isBot) {
-        if(!isBot) {
+    void UpdateHighScore(bool isBot, bool scoreLimit) {
+        if(!isBot && !scoreLimit) {
             if(allScores.scoreList.Count > currentLvlIndex) {
                 if(allScores.scoreList[currentLvlIndex] > numberOfLvlScore) {
                     allScores.scoreList[currentLvlIndex] = numberOfLvlScore;

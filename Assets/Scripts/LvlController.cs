@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -63,11 +64,20 @@ public class LvlController : MonoBehaviour
         lvlComplitedObject.SetActive(false);
         lvlLostObject.SetActive(false);
         forceButton.SetActive(true);
+        Debug.Log("Target: " + currentLvl.targetOfShoots);
         OnLvlLoaded.Invoke(currentLvl, lvlIndex);
     }
 
-    void lvlComplited(bool isBot) {
+    void lvlComplited(bool isBot, bool scoreLimit) {
+
         if(isBot) {
+            TextMeshProUGUI tmp = lvlLostObject.GetComponentInChildren<TextMeshProUGUI>();
+            tmp.text = "Bot won !";
+            SoundsAction.Lost();
+            lvlLostObject.SetActive(true);
+        } else if(scoreLimit && PlayerProfile.gameMode == Gamemode.singlePlayer) {
+            TextMeshProUGUI tmp = lvlLostObject.GetComponentInChildren<TextMeshProUGUI>();
+            tmp.text = "You have reached shoots limit !";
             SoundsAction.Lost();
             lvlLostObject.SetActive(true);
         } else {

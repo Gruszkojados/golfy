@@ -6,28 +6,33 @@ public class Hole : MonoBehaviour
 {   
     public GameObject slowDown;
     Animator animSlowDown;
-    public static event Action<bool> onBallInHole = (isBot) => {};
+    public static event Action<bool, bool> onBallInHole = (isBot, scoreTargetLimit) => {};
     public static event Action<Vector2> HoleInitioalPosition  = (vector) => {};
     Vector2 holePosition;
     public GameObject fullHole;
     public GameObject emptyHoll;
+    int currentScore = 0;
+    int currentTargetScore = 0;
+    private void Awake() {
+        Ball.OnAnyBallStop += WhereIsHole;
+        LvlScore.OnScoreChange += UpdateCurrentScore;
+        LvlController.OnLvlLoaded += UpdateCurrentTargetScore;
+    }
     private void Start() {
         animSlowDown = slowDown.GetComponent<Animator>();
         ChageHollImage();
-        Ball.OnAnyBallStop += WhereIsHole;
         holePosition = new Vector2(transform.position.x, transform.position.y);
         WhereIsHole();
     }
 
     private void OnDestroy() {
         Ball.OnAnyBallStop -= WhereIsHole;
+        LvlScore.OnScoreChange -= UpdateCurrentScore;
+        LvlController.OnLvlLoaded -= UpdateCurrentTargetScore;
     }
 
     public void WhereIsHole() { 
         HoleInitioalPosition.Invoke(holePosition);
-    }
-    private void OnTriggerStay2D(Collider2D other) {
-        
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag=="Ball") {
@@ -56,9 +61,21 @@ public class Hole : MonoBehaviour
             emptyHoll.SetActive(false);
         }
     }
-        public IEnumerator Wait(Ball ball) {
+
+    void UpdateCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
+    }
+    void UpdateCurrentTargetScore(Lvl currentLvl, int _) {
+        this.currentTargetScore = currentLvl.targetOfShoots;
+    }
+
+    public IEnumerator Wait(Ball ball) {
         yield return new WaitForSeconds(0.5f);
         ChageHollImage();
-        onBallInHole.Invoke(ball.getOwner());
+        onBallInHole.Invoke(ball.getOwner(), ScoreDifference());
+    }
+
+    bool ScoreDifference() {
+        return currentScore > currentTargetScore ? true : false;
     }
 }

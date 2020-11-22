@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class CurrentScoreText : MonoBehaviour
-{
+{   
     TextMeshProUGUI textMeshProUGUI;
     void Awake() {
         textMeshProUGUI = GetComponent<TextMeshProUGUI>();

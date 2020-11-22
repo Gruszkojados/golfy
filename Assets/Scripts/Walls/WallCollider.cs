@@ -10,7 +10,6 @@ public class WallCollider : MonoBehaviour
     List<Vector2> points = new List<Vector2>();
     void Start()
     {   
-        Debug.Log("Awake kolizji");
         Vector3[] positions = new Vector3[lineRenderer.positionCount];
         lineRenderer.GetPositions(positions);
         foreach(var point in positions) {
