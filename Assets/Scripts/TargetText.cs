@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class TargetText : MonoBehaviour
 {
     TextMeshProUGUI textMeshProUGUI;
     void Awake() {
-        textMeshProUGUI = GetComponent<TextMeshProUGUI>();  // pobieranie komponentu po jego typie
+        textMeshProUGUI = GetComponent<TextMeshProUGUI>();
         LvlController.OnLvlLoaded += OnLvlLoaded;
     }
 
@@ -15,7 +13,7 @@ public class TargetText : MonoBehaviour
         LvlController.OnLvlLoaded -= OnLvlLoaded;
     }
 
-    void OnLvlLoaded(Lvl level) {
+    void OnLvlLoaded(Lvl level, int _) {
         textMeshProUGUI.text = level.targetOfShoots.ToString();
     }
 }

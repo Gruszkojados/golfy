@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 public class ChargeBar : MonoBehaviour
 {
-    public static event Action OnCharge = () => { };
-
-    public UnityEngine.UI.Image image;
     bool up = true;
     float chargeValue = 1f;
     public float chargePower { 
         get { 
             return chargeValue/powerDivider; 
-        } 
+        }
     }
     public float powerDivider = 4f;
     public float iterMax = 50f;
@@ -24,6 +17,7 @@ public class ChargeBar : MonoBehaviour
         gameObject.SetActive(false);
         ShootButton.OnShoot += HideChargeBar;
     }
+
     void Update()
     {
         if(up && chargeValue<=iterMax) {
@@ -40,7 +34,7 @@ public class ChargeBar : MonoBehaviour
         transform.localScale = new Vector3(20, chargeValue, 0);
     }
 
-    void HideChargeBar(float power) {
+    void HideChargeBar(float _) {
         gameObject.SetActive(false);
     }
 

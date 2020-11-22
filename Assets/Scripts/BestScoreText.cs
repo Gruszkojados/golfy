@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class BestScoreText : MonoBehaviour
 {
     TextMeshProUGUI textMeshProUGUI;
     void Awake() {
-        textMeshProUGUI = GetComponent<TextMeshProUGUI>();  // pobieranie komponentu po jego typie
+        LvlScore.OnBestScoreLoaded += SetBestScoreText;
+        textMeshProUGUI = GetComponent<TextMeshProUGUI>();
+    }
+    void OnDestroy() {
+        LvlScore.OnBestScoreLoaded -= SetBestScoreText;
     }
 
-    private void OnDestroy() {
+    public void SetBestScoreText(int bestScore) {
+        if(bestScore==1000) {
+            textMeshProUGUI.text = "...";
+        } else {
+            textMeshProUGUI.text = bestScore.ToString();
+        }
     }
 }

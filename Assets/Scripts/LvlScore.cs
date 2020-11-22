@@ -1,46 +1,49 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LvlScore : MonoBehaviour
 {   
-    public LevelData allScores;
     public static event Action<int> OnScoreChange = (number) => {};
+    public static event Action<int, int> OnLoadScore = (currentLvl, actualScore) => {};
+    public static event Action<int> OnBestScoreLoaded = (bestScore) => {};
+
     int numberOfLvlScore = 0;
+    public LevelData allScores;
+    int currentLvlIndex;
 
     private void Awake() {
-        LoadScore();
         ShootButton.OnShoot += IncrementLvlScore;
-        LvlController.OnLvlComplited += addIndexAndScoreList;
-        LvlController.OnLvlLoaded += ClearScore;
-        LvlController.OnGoToHome += addIndexAndScoreList;
-        allScores = new LevelData();
+        LvlController.OnLvlLoaded += OnLvlLoaded;
+        Hole.onBallInHole += UpdateHighScore;
+    }
+
+    private void Start() {
+        LoadScore();
     }
 
     private void OnDestroy() {
-        SaveScore(allScores);
         ShootButton.OnShoot -= IncrementLvlScore;
-        LvlController.OnLvlComplited -= addIndexAndScoreList;
-        LvlController.OnLvlLoaded -= ClearScore;
+        LvlController.OnLvlLoaded -= OnLvlLoaded;
+        Hole.onBallInHole -= UpdateHighScore;
     }
 
-    void addIndexAndScoreList(int lvlIndex) {
-        if(allScores.scoreList.Count<=lvlIndex) {
-            allScores.scoreList.Add(numberOfLvlScore);
-        } else if (allScores.scoreList.Count>=lvlIndex) {
-            allScores.scoreList[lvlIndex] = numberOfLvlScore;
+    void UpdateHighScore(bool isBot, bool scoreLimit) {
+        if(!isBot && !scoreLimit) {
+            if(allScores.scoreList.Count > currentLvlIndex) {
+                if(allScores.scoreList[currentLvlIndex] > numberOfLvlScore) {
+                    allScores.scoreList[currentLvlIndex] = numberOfLvlScore;
+                }
+            } else {
+                allScores.scoreList.Add(numberOfLvlScore);
+            }
+            OnBestScoreLoaded.Invoke(allScores.scoreList[currentLvlIndex]);
+            allScores.SaveScore();
         }
     }
 
     void LoadScore() {
-        string json = PlayerPrefs.GetString("allScores");
-        allScores = JsonUtility.FromJson<LevelData>(json);
-    }
-
-    void SaveScore(LevelData allScores) {
-        Debug.Log("zapisano postęp");
-        PlayerPrefs.SetString("allScores", JsonUtility.ToJson(allScores));
+        allScores = LevelData.LoadData();
     }
 
     void IncrementLvlScore(float nothing) {
@@ -48,15 +51,40 @@ public class LvlScore : MonoBehaviour
         OnScoreChange.Invoke(numberOfLvlScore);
     }
 
-    void ClearScore(Lvl levelUnused) {
+    void OnLvlLoaded(Lvl _, int index) {
         numberOfLvlScore = 0;
+        currentLvlIndex = index;    
+        var highScore = currentLvlIndex >= allScores.scoreList.Count ? 10 : allScores.scoreList[currentLvlIndex];
+        OnLoadScore.Invoke(currentLvlIndex, highScore);
+        if(allScores.scoreList.Count>=currentLvlIndex+1) {
+            OnBestScoreLoaded.Invoke(allScores.scoreList[currentLvlIndex]);
+        } else {
+            OnBestScoreLoaded.Invoke(1000);
+        }
     }
 }
 
-public class LevelData
+[Serializable]
+public class LevelData 
 {
     public LevelData() {
         scoreList = new List<int>();
     }
     public List<int> scoreList;
+    const string classKey = "allScores";
+
+    public static LevelData LoadData() {
+        if(!PlayerPrefs.HasKey(classKey)) {
+            var ld = new LevelData();
+            ld.scoreList.Add(1000);
+            ld.SaveScore();
+        };
+        string json = PlayerPrefs.GetString(classKey);
+        LevelData allScoresTemp = JsonUtility.FromJson<LevelData>(json);
+        return allScoresTemp;
+    } 
+
+    public void SaveScore() {
+        PlayerPrefs.SetString(classKey, JsonUtility.ToJson(this));
+    }
 }

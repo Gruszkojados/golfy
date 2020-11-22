@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class CurrentScoreText : MonoBehaviour
-{
+{   
     TextMeshProUGUI textMeshProUGUI;
     void Awake() {
-        textMeshProUGUI = GetComponent<TextMeshProUGUI>();  // pobieranie komponentu po jego typie
+        textMeshProUGUI = GetComponent<TextMeshProUGUI>();
         LvlScore.OnScoreChange += OnLvlLoaded;
         LvlController.OnLvlLoaded += ClearScore;
     }
@@ -22,7 +19,7 @@ public class CurrentScoreText : MonoBehaviour
         textMeshProUGUI.text = number.ToString();
     }
 
-    void ClearScore(Lvl number) {
+    void ClearScore(Lvl _, int __) {
         textMeshProUGUI.text = "0";
     }
 

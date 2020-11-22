@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Sand
+  - Ramp
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - A* layer
+  - SlowerLayer
   - 
   - 
   - 
@@ -42,15 +44,30 @@ TagManager:
   - name: Background
     uniqueID: 852271975
     locked: 0
+  - name: Slower
+    uniqueID: 4020156263
+    locked: 0
+  - name: Wall
+    uniqueID: 1889293539
+    locked: 0
+  - name: Ramp
+    uniqueID: 1382737831
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: GameObjects
     uniqueID: 625167215
     locked: 0
+  - name: Hole
+    uniqueID: 1806277267
+    locked: 0
   - name: Ball
     uniqueID: 3546497289
     locked: 0
   - name: Gizmos
     uniqueID: 3431785789
+    locked: 0
+  - name: New Layer
+    uniqueID: 2340495347
     locked: 0
