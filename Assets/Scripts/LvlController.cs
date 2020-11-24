@@ -64,7 +64,6 @@ public class LvlController : MonoBehaviour
         lvlComplitedObject.SetActive(false);
         lvlLostObject.SetActive(false);
         forceButton.SetActive(true);
-        Debug.Log("Target: " + currentLvl.targetOfShoots);
         OnLvlLoaded.Invoke(currentLvl, lvlIndex);
     }
 

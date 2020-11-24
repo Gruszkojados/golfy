@@ -46,7 +46,7 @@ public class AiPlayer : Player
                         // Vector3 rayPosition = new Vector3(transform.position.x, headHeight, transform.position.z);
                         // Vector2 leftRayRotation = Vector2.AngleAxis(10, hit.point);
                         // Vector3 rightRayRotation = Quaternion.AngleAxis(fovAngle, transform.up) * transform.forward;
-                        
+
                         // //Constructing rays
                         // Ray rayCenter = new Ray(rayPosition, transform.forward);
                         // Ray rayLeft = new Ray(hit.point, leftRayRotation);
