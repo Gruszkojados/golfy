@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8756695017157404531}
   - component: {fileID: 5162109413336272769}
   - component: {fileID: 9188099307092018124}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dancer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5265128073463246397}
   - component: {fileID: 9024948785572892266}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Filling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,6 +241,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: shadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242999204528645828, guid: df0b1dbe0bacc394dabd5709ccefaf22,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6924892283792581965, guid: df0b1dbe0bacc394dabd5709ccefaf22,
         type: 3}

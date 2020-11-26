@@ -26,7 +26,7 @@ namespace golf {
             cinemachineCamera.m_Lens.OrthographicSize = 60f;    
         }
         void Update() {
-            #if UNITY_EDITOR
+            #if UNITY_EDITOR // controll for development on PC
                     if (Input.GetMouseButtonDown(0))
                     {
                         Click();
@@ -40,15 +40,12 @@ namespace golf {
                     }
                     
                     MouseDrag();
-            #else
+            #else // controll for mobile
                     if(Input.touchCount == 1) {
                         lastTouch = Input.GetTouch(0).position;
                         Touch();
                         Rotate();
                         isDragging = true;
-                    } else if (Input.touchCount == 2) {
-                        // TODO
-                        // CameraZoom(); <--- zoom na dwa palce
                     } else {
                         isDragging = false;
                         return;
@@ -64,22 +61,6 @@ namespace golf {
             }
             
             OnTouch.Invoke();
-        }
-
-        void CameraZoom() {
-            var touch = Input.GetTouch(1).position;
-
-            if (Math.Abs(Vector3.Distance(touch, lastTouch)) >= lastDistance) {
-                if(cinemachineCamera.m_Lens.OrthographicSize <= 200f) {
-                    lastDistance = Vector3.Distance(touch, lastTouch);
-                    cinemachineCamera.m_Lens.OrthographicSize = lastDistance;
-                }
-            } else {
-                if(cinemachineCamera.m_Lens.OrthographicSize >= 40f) {
-                    lastDistance = Vector3.Distance(touch, lastTouch);
-                    cinemachineCamera.m_Lens.OrthographicSize = lastDistance;
-                }
-            } 
         }
 
         public void OnValueChanged(float newValue) {

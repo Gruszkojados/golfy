@@ -34,13 +34,13 @@ public class Hole : MonoBehaviour
     public void WhereIsHole() { 
         HoleInitioalPosition.Invoke(holePosition);
     }
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void OnTriggerEnter2D(Collider2D other) { // ball in hole function
         if(other.tag=="Ball") {
             Ball ball = other.gameObject.GetComponent<Ball>();
             if(ball==null) {
                 return;
             }
-            if(ball.velocity > 1500) {
+            if(ball.velocity > 1500) { // checking ball speed for swing
                 SoundsAction.BallSwing();
                 animSlowDown.SetTrigger("Slow");
                 ball.SmallChangeDirection();
@@ -52,7 +52,7 @@ public class Hole : MonoBehaviour
             StartCoroutine(Wait(ball));
         }
     }
-    void ChageHollImage() {
+    void ChageHollImage() { // change hole image
         if(fullHole.activeSelf) {
             fullHole.SetActive(false);
             emptyHoll.SetActive(true);
@@ -62,10 +62,10 @@ public class Hole : MonoBehaviour
         }
     }
 
-    void UpdateCurrentScore(int currentScore) {
+    void UpdateCurrentScore(int currentScore) { // updating current score for "single" mode
         this.currentScore = currentScore;
     }
-    void UpdateCurrentTargetScore(Lvl currentLvl, int _) {
+    void UpdateCurrentTargetScore(Lvl currentLvl, int _) { // updating target score for "single" mode
         this.currentTargetScore = currentLvl.targetOfShoots;
     }
 
@@ -75,7 +75,7 @@ public class Hole : MonoBehaviour
         onBallInHole.Invoke(ball.getOwner(), ScoreDifference());
     }
 
-    bool ScoreDifference() {
+    bool ScoreDifference() { // checking is game complete, only "single" mode
         return currentScore > currentTargetScore ? true : false;
     }
 }

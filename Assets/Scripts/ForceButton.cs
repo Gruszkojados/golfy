@@ -5,7 +5,7 @@ public class ForceButton : MonoBehaviour
 {
     public static event Action OnChangeForce = () => {};
     public GameObject[] objectsToEnable;
-    public void Setfoce() {
+    public void Setfoce() { // "set force" button action
         SoundsAction.SetForce();
         foreach (var item in objectsToEnable)
         {

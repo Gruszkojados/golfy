@@ -9,7 +9,7 @@ public class TutorialScript : MonoBehaviour
     void Start() {
         images[currentImageIndex].SetActive(true);
     }
-    public void ChangeImage(bool isUp) {
+    public void ChangeImage(bool isUp) { // change tutorial image
         if(isUp) {
             if(currentImageIndex == images.Length-1) {
                 return;

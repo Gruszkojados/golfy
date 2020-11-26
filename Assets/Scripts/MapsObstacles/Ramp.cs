@@ -11,7 +11,7 @@ public class Ramp : MonoBehaviour
     private void OnDestroy() {
         AiPlayer.SwitchColider -= ColiderSwitch;
     } 
-    void OnTriggerStay2D(Collider2D other) {
+    void OnTriggerStay2D(Collider2D other) { // trigger for ball enter on ramp
         if(other.tag=="Ball") {
             Ball ball = other.GetComponent<Ball>();
             ball.RollBack(rampDirection);

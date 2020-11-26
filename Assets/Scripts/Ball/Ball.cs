@@ -14,7 +14,6 @@ public class Ball : MonoBehaviour
     public Collider2D ballColider;
     [HideInInspector]
     public Seeker seeker;
-    public Animator animator;
     bool isSupscribed = false;
     [HideInInspector]
     bool isBotBall = false;

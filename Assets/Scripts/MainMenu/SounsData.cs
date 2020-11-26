@@ -7,12 +7,12 @@ public class SounsData : MonoBehaviour
     private void Awake() {
         ChangeButtonImage();
     }
-    void ChangeSoundsSettings() {
+    void ChangeSoundsSettings() { // change sounds 
         PlayerProfile.ChangeSounds();
         SoundsAction.ButtonClick();
         ChangeButtonImage();
     }
-    void ChangeButtonImage() {
+    void ChangeButtonImage() { // change sound button image
         if(PlayerProfile.sounds) {
             soundsON.SetActive(true);
             soundsOFF.SetActive(false);

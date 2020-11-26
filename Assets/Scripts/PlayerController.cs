@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         Ball.OnAnyBallStop -= OnBallStoped;
     }
 
-    void InitPlayers() {
+    void InitPlayers() { // init all player in case of game type
         switch (PlayerProfile.gameMode)
         {
             case Gamemode.singlePlayer: 
@@ -37,28 +37,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnLvlLoaded(Lvl _, int __) {
+    void OnLvlLoaded(Lvl _, int __) { // function for load levels
         if(balls!=null) {
-            foreach (var item in balls)
+            foreach (var item in balls) // destroy whole old balls
             {
                 Destroy(item.gameObject);
             }
         }
         balls = new Ball[players.Length];
         int index = 0;
-        foreach (var player in players)
+        foreach (var player in players) // init all players
         {   
             Ball ball = Instantiate(ballPrefab);
             ball.ActivateBall(false);
-            player.InitPlayer(ball);
+            player.InitPlayer(ball); // init ball for player
             ball.RotationBarDisplay(false);
             if(player.GetType() == typeof(AiPlayer)) {
-                ball.setOwner(true);
+                ball.setOwner(true); // seting ball owner
             }
             balls[index] = ball;
             index++;
         }
-        if(players.Length > 1) {
+        if(players.Length > 1) { // make some space between players
             players[0].ball.transform.position = new Vector3(-2f,0f,0f);
             players[1].ball.transform.position = new Vector3(2f,0f,0f);
         }
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         currentPlayer.StartTurn();
     }
 
-    void OnBallStoped() {
+    void OnBallStoped() { // function for end of player turn
         int index = 0;
         foreach (var item in players)
         {
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
             index++;
         }
     }
-    public IEnumerator BotWait(Player player) {
+    public IEnumerator BotWait(Player player) { // bot player shoot delay
         yield return new WaitForSeconds(1f);
         player.StartTurn();
     }

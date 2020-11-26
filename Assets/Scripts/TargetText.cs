@@ -13,7 +13,7 @@ public class TargetText : MonoBehaviour
         LvlController.OnLvlLoaded -= OnLvlLoaded;
     }
 
-    void OnLvlLoaded(Lvl level, int _) {
+    void OnLvlLoaded(Lvl level, int _) { // seting shoot target on panel
         textMeshProUGUI.text = level.targetOfShoots.ToString();
     }
 }

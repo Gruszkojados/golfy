@@ -8,7 +8,7 @@ public class WallCollider : MonoBehaviour
     public LineRenderer lineRenderer;
     public EdgeCollider2D edgeCollider2D;
     List<Vector2> points = new List<Vector2>();
-    void Start()
+    void Start() // function to load points for main wall collider
     {   
         Vector3[] positions = new Vector3[lineRenderer.positionCount];
         lineRenderer.GetPositions(positions);

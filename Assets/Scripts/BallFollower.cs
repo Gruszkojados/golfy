@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BallFollower : MonoBehaviour
+public class BallFollower : MonoBehaviour // calls for update ball position. Useing by camerFollower
 {   
     public GameObject follower;
     private void Awake() {

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class ExitGame : MonoBehaviour
 {
-    void Update()
+    void Update() // functon is checking for using exit button on device
     {   
         if(Input.GetKeyDown(KeyCode.Escape)){
             if(Application.platform == RuntimePlatform.Android) {

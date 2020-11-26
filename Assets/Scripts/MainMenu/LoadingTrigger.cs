@@ -11,7 +11,7 @@ public class LoadingTrigger : MonoBehaviour
         LvlButton.OnLoadLvlButton -= MakeTrasition;
         LvlController.OnHomeBack -= MakeTrasition;
     }
-    public void MakeTrasition() {
+    public void MakeTrasition() { // function running loading animation
         transition.SetTrigger("Start");
     }
 }

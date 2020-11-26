@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class PlayerProfile
+public static class PlayerProfile // class for read/write info about sounds and seting actual gamemode
 {
     public static int levelIndex;
     public static Gamemode gameMode;

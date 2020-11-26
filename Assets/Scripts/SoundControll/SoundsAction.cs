@@ -1,6 +1,6 @@
 ﻿using System;
 
-public static class SoundsAction
+public static class SoundsAction // static class for sounds controll. Using events to comunicate with Sounds script
 {
     public static event Action OnButtonClick = () => {};
     public static event Action OnSetForce = () => {};

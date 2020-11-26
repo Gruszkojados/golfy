@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
         PlayerController.OnChangePlayer -= EnableDisableTouchInput;
     }
 
-    void EnableDisableTouchInput(Player player) {
+    void EnableDisableTouchInput(Player player) { // enable/disable touch between turns
         if(player is HumanPlayer) {
             touchInput.enabled = true;
         } else {

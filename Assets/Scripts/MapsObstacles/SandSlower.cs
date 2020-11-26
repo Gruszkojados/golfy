@@ -11,7 +11,7 @@ public class SandSlower : MonoBehaviour
     private void OnDestroy() {
         AiPlayer.SwitchColider -= ColiderSwitch;
     }
-    private void OnTriggerStay2D(Collider2D other) {
+    private void OnTriggerStay2D(Collider2D other) { // trigger on ball stary on slower
         if(other.tag=="Ball") {
             Ball ball = other.gameObject.GetComponent<Ball>();
             ball.SlowVelocity();

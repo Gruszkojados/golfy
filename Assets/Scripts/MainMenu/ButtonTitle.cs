@@ -11,7 +11,7 @@ public class ButtonTitle : MonoBehaviour
     void OnDestroy() {
         SettingsMenu.OnHitButton -= ChangeTitle;
     }
-    void ChangeTitle(string title) {
+    void ChangeTitle(string title) { // seting settings button title in GUI
         textMeshProUGUI.text = title;
     }
 }

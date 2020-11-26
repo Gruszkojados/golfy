@@ -65,7 +65,7 @@ public class LvlScore : MonoBehaviour
 }
 
 [Serializable]
-public class LevelData 
+public class LevelData // class for read and update scores, using PlayerPrefs
 {
     public LevelData() {
         scoreList = new List<int>();

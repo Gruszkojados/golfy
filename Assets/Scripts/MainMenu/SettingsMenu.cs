@@ -8,7 +8,7 @@ public class SettingsMenu : MonoBehaviour
     public static event Action<String> OnHitButton = (text) => {};
     public GameObject tutorial;
     int loadCtl = 0;
-    public void ShowHideMenu() {
+    public void ShowHideMenu() { // show/hide settings GUI
         SoundsAction.ButtonClick();
 
         Transform tmp = transform.GetChild(0);
@@ -26,12 +26,12 @@ public class SettingsMenu : MonoBehaviour
             gameObject.SetActive(true);
         }
     }
-    public void LoadMiniGame() {
+    public void LoadSpec() {
         loadCtl++;
-        StartCoroutine(loadGameWait());
+        StartCoroutine(loadSpecWait());
     }
 
-    public IEnumerator loadGameWait() {
+    public IEnumerator loadSpecWait() {
         if(loadCtl > 8) {
             SceneManager.LoadScene(2);
         }

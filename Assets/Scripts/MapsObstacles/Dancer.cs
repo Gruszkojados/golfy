@@ -7,10 +7,10 @@ public class Dancer : MonoBehaviour
     private void Awake() {
         rigidbody = gameObject.GetComponent<Rigidbody2D>();
     }
-    private void Start() {
+    private void Start() { // dancer start move
         rigidbody.AddForce(new Vector2(-500,0));
     }
-    void FixedUpdate()
+    void FixedUpdate() // dancer move
     {   
         if(gameObject.transform.position.x > maxDistance) {
             rigidbody.AddForce(new Vector2(-500,0));

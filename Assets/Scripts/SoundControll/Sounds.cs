@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Sounds : MonoBehaviour
+public class Sounds : MonoBehaviour // sounds player
 {
     public AudioSource setForce;
     public AudioSource shoot;

@@ -43,7 +43,7 @@ public class LvlController : MonoBehaviour
         OnResetLvl.Invoke();
         LoadLvl(LoadLevelType.currentLvl);
     }
-    void LoadLvl(LoadLevelType loadLvlType) {
+    void LoadLvl(LoadLevelType loadLvlType) { // function loading correct level. Continue game, next level or restart level
         HideQuickGameMenu(0);
         
         if(currentLvl!=null) {      
@@ -56,7 +56,7 @@ public class LvlController : MonoBehaviour
             
         }
 
-        if(lvlList.levels.Length < lvlIndex+1) {
+        if(lvlList.levels.Length < lvlIndex+1) { // if complete whole game, return to main scene
                 SceneManager.LoadScene(0);
         }
 
@@ -67,8 +67,7 @@ public class LvlController : MonoBehaviour
         OnLvlLoaded.Invoke(currentLvl, lvlIndex);
     }
 
-    void lvlComplited(bool isBot, bool scoreLimit) {
-
+    void lvlComplited(bool isBot, bool scoreLimit) { // correct messages in panel after game 
         if(isBot) {
             TextMeshProUGUI tmp = lvlLostObject.GetComponentInChildren<TextMeshProUGUI>();
             tmp.text = "Bot won !";
@@ -90,13 +89,13 @@ public class LvlController : MonoBehaviour
         StartCoroutine(LoadLvlWait());
     }
 
-    public IEnumerator LoadLvlWait() {
+    public IEnumerator LoadLvlWait() { // loading screen delay and change scene 
         OnHomeBack.Invoke();
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(0);
     }
 
-    public void ShowQuickGameMenu() {
+    public void ShowQuickGameMenu() { // show/hide quick menu in game
         SoundsAction.ButtonClick();
         if(quickMenuObject.activeSelf) {
             quickMenuObject.SetActive(false);
@@ -114,9 +113,9 @@ public class LvlController : MonoBehaviour
     }
 }
 
-enum LoadLevelType
+enum LoadLevelType // type of loaded level
 {
-    currentLvl = 0,
-    nextLvl = 1,
-    fromPlayerProfile = 2
+    currentLvl = 0,          // restart level
+    nextLvl = 1,             // next level
+    fromPlayerProfile = 2    // continue game
 }

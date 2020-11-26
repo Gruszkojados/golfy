@@ -12,7 +12,7 @@ public class BestScoreText : MonoBehaviour
         LvlScore.OnBestScoreLoaded -= SetBestScoreText;
     }
 
-    public void SetBestScoreText(int bestScore) {
+    public void SetBestScoreText(int bestScore) { // setting best score on panel
         if(bestScore==1000) {
             textMeshProUGUI.text = "...";
         } else {

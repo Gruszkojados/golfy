@@ -5,7 +5,7 @@ public class LvlButtonList : MonoBehaviour
     public LvlButton lvlButtonPrefab;
     RectTransform rectTransform;
     
-    void Start()
+    void Start() // function init all available levels buttons and format level list in GUI
     {   
         LevelData levelData = LevelData.LoadData();
         int loadedLvls = levelData.scoreList.Count;
@@ -20,7 +20,7 @@ public class LvlButtonList : MonoBehaviour
         rectTransform = gameObject.GetComponent<RectTransform>();
         if(loadedLvls > 7) {
             int addHight = loadedLvls - 7; 
-            rectTransform.sizeDelta = new Vector2(0, 500f + (addHight*80));
+            rectTransform.sizeDelta = new Vector2(0, 500f + (addHight*100));
         }
     }
 }

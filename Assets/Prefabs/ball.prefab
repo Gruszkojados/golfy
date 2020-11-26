@@ -175,7 +175,6 @@ GameObject:
   - component: {fileID: 5740961655563771526}
   - component: {fileID: 7644159658580727128}
   - component: {fileID: 7297576415156635905}
-  - component: {fileID: 7150457675763503577}
   - component: {fileID: 3120262041771994898}
   m_Layer: 0
   m_Name: Ball
@@ -353,42 +352,6 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &7150457675763503577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5740961655563771549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radius: 0.5
-  height: 2
-  repathRate: 2
-  canSearch: 0
-  canMove: 0
-  maxSpeed: 1
-  gravity: {x: NaN, y: NaN, z: NaN}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  centerOffsetCompatibility: NaN
-  orientation: 0
-  enableRotation: 1
-  targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
-  endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
-  constrainInsideGraph: 0
 --- !u!114 &3120262041771994898
 MonoBehaviour:
   m_ObjectHideFlags: 0
