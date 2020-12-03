@@ -8,8 +8,6 @@ public class LvlController : MonoBehaviour
 {   
     public static event Action OnHomeBack = () => {}; 
     public static event Action<Lvl, int> OnLvlLoaded = (level, index) => {};
-    public static event Action<int> OnLvlComplited = (index) => {};
-    public static event Action<float> OnShowQuickMenu = (_) => {};
     public static event Action OnHideQuickMenu = () => {};
     public static event Action OnResetLvl = () => {};
     public LvlList lvlList;
@@ -19,11 +17,8 @@ public class LvlController : MonoBehaviour
     public GameObject lvlLostObject;
     public GameObject quickMenuObject;
     public GameObject forceButton;
-    public GameObject animator;
-    Animator transition;
     void Start()
     {
-        transition = animator.GetComponent<Animator>();
         LoadLvl(LoadLevelType.fromPlayerProfile);
     }
     void Awake() {
@@ -35,7 +30,6 @@ public class LvlController : MonoBehaviour
     }
     public void ChangeLvl() {
         SoundsAction.ButtonClick();
-        OnLvlComplited.Invoke(lvlIndex);
         LoadLvl(LoadLevelType.nextLvl);
     }
     public void Reloadlvl() {
@@ -102,12 +96,12 @@ public class LvlController : MonoBehaviour
         } else {
             quickMenuObject.SetActive(true);
         }
-        
-        OnShowQuickMenu.Invoke(0);
     }
 
-    public void HideQuickGameMenu(float _) {
-        SoundsAction.ButtonClick();
+    public void HideQuickGameMenu(float sound) {
+        if(sound.Equals(1)){
+            SoundsAction.ButtonClick();
+        }
         quickMenuObject.SetActive(false);
         OnHideQuickMenu.Invoke();
     }

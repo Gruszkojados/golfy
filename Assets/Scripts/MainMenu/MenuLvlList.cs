@@ -6,14 +6,16 @@ public class MenuLvlList : MonoBehaviour
     public static event Action OnReturnToMenuButton = () => {};
      private void Awake() {
         GameMenu.OnPlayButtonClick += ShowList;
-        HideList();
+        HideList(false);
     }
     private void OnDestroy() {
         GameMenu.OnPlayButtonClick -= ShowList;
     }
 
-    public void HideList() {
-        SoundsAction.ButtonClick();
+    public void HideList(bool sound) {
+        if(sound) {
+            SoundsAction.ButtonClick();
+        }
         gameObject.SetActive(false);
         OnReturnToMenuButton.Invoke();
     }
