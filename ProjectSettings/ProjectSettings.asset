@@ -713,10 +713,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 08818d9e-5285-4082-a7c9-88ca6b07ea18
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: golf
+  organizationId: gruszkojados
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

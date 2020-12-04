@@ -8,6 +8,7 @@ public class LvlController : MonoBehaviour
 {   
     public static event Action OnHomeBack = () => {}; 
     public static event Action<Lvl, int> OnLvlLoaded = (level, index) => {};
+    public static event Action<int> OnAdShow = (type) => {};
     public static event Action OnHideQuickMenu = () => {};
     public static event Action OnResetLvl = () => {};
     public LvlList lvlList;
@@ -33,6 +34,7 @@ public class LvlController : MonoBehaviour
         LoadLvl(LoadLevelType.nextLvl);
     }
     public void Reloadlvl() {
+        OnAdShow.Invoke(1);
         SoundsAction.ButtonClick();
         OnResetLvl.Invoke();
         LoadLvl(LoadLevelType.currentLvl);
