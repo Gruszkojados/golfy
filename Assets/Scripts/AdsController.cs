@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdsController : MonoBehaviour
+public class AdsController : MonoBehaviour // class for monetization 
 {
     string gameId = "3925763";
     bool testMode = true;
