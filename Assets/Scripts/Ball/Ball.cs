@@ -14,6 +14,7 @@ public class Ball : MonoBehaviour
     public Collider2D ballColider;
     [HideInInspector]
     public Seeker seeker;
+    public TargetBlock targetBlock;
     bool isSupscribed = false;
     [HideInInspector]
     bool isBotBall = false;
@@ -124,7 +125,7 @@ public class Ball : MonoBehaviour
         return isBotBall;
     }
 
-    /*### functions for obstacles objects ###*/
+    /*### functions for obstacles ###*/
 
     // function for holes
     public void SmallChangeDirection() { 

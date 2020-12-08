@@ -65,7 +65,7 @@ public class LvlScore : MonoBehaviour
 }
 
 [Serializable]
-public class LevelData // class for read and update scores, using PlayerPrefs
+public class LevelData // Class for read and update scores. Using PlayerPrefs.
 {
     public LevelData() {
         scoreList = new List<int>();
@@ -74,7 +74,7 @@ public class LevelData // class for read and update scores, using PlayerPrefs
     const string classKey = "allScores";
 
     public static LevelData LoadData() {
-        if(!PlayerPrefs.HasKey(classKey)) {
+        if(!PlayerPrefs.HasKey(classKey)) { 
             var ld = new LevelData();
             ld.scoreList.Add(1000);
             ld.SaveScore();

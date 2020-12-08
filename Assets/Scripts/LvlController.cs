@@ -30,6 +30,7 @@ public class LvlController : MonoBehaviour
         Hole.onBallInHole -= lvlComplited;
     }
     public void ChangeLvl() {
+        
         SoundsAction.ButtonClick();
         LoadLvl(LoadLevelType.nextLvl);
     }

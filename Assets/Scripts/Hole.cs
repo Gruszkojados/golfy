@@ -34,13 +34,13 @@ public class Hole : MonoBehaviour
     public void WhereIsHole() { 
         HoleInitioalPosition.Invoke(holePosition);
     }
-    private void OnTriggerEnter2D(Collider2D other) { // ball in hole function
+    private void OnTriggerEnter2D(Collider2D other) { // Ball-in-hole - function.
         if(other.tag=="Ball") {
             Ball ball = other.gameObject.GetComponent<Ball>();
             if(ball==null) {
                 return;
             }
-            if(ball.velocity > 1500) { // checking ball speed for swing
+            if(ball.velocity > 1500) { // Checking ball speed for swing.
                 SoundsAction.BallSwing();
                 animSlowDown.SetTrigger("Slow");
                 ball.SmallChangeDirection();
@@ -52,7 +52,7 @@ public class Hole : MonoBehaviour
             StartCoroutine(Wait(ball));
         }
     }
-    void ChageHollImage() { // change hole image
+    void ChageHollImage() { // Change hole image.
         if(fullHole.activeSelf) {
             fullHole.SetActive(false);
             emptyHoll.SetActive(true);
@@ -60,12 +60,13 @@ public class Hole : MonoBehaviour
             fullHole.SetActive(true);
             emptyHoll.SetActive(false);
         }
+        
     }
 
-    void UpdateCurrentScore(int currentScore) { // updating current score for "single" mode
+    void UpdateCurrentScore(int currentScore) { // Updating current score for "single" mode.
         this.currentScore = currentScore;
     }
-    void UpdateCurrentTargetScore(Lvl currentLvl, int _) { // updating target score for "single" mode
+    void UpdateCurrentTargetScore(Lvl currentLvl, int _) { // Updating target score for "single" mode.
         this.currentTargetScore = currentLvl.targetOfShoots;
     }
 
@@ -75,7 +76,7 @@ public class Hole : MonoBehaviour
         onBallInHole.Invoke(ball.getOwner(), ScoreDifference());
     }
 
-    bool ScoreDifference() { // checking is game complete, only "single" mode
+    bool ScoreDifference() { // Checking is game complete, only "single" mode.
         return currentScore > currentTargetScore ? true : false;
     }
 }

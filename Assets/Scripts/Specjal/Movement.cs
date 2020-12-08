@@ -6,12 +6,10 @@ public class Movement : MonoBehaviour
     public float speed = 3f;   
     public float shootRate = 0.08f;
     public GameObject shootPrefab;
-    private new Rigidbody2D rigidbody;
     Vector3 position;
     bool isShooting = false;
     bool canInstantiate = true;
     private void Awake() {
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
         position = transform.localPosition;
     }
     void FixedUpdate() {

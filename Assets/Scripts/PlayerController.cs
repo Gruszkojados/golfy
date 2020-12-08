@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public static event Action<Player> OnChangePlayer = (_) => {};
     public Ball ballPrefab;
+    public TargetBlock targetBlock;
     Player currentPlayer;
     Player[] players;
     Ball[] balls;
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
         Ball.OnAnyBallStop -= OnBallStoped;
     }
 
-    void InitPlayers() { // init all player in case of game type
+    void InitPlayers() { // Initializ all player in case of game type.
         switch (PlayerProfile.gameMode)
         {
             case Gamemode.singlePlayer: 
@@ -37,28 +38,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnLvlLoaded(Lvl _, int __) { // function for load levels
+    void OnLvlLoaded(Lvl _, int __) { // Function for load levels.
         if(balls!=null) {
-            foreach (var item in balls) // destroy whole old balls
+            foreach (var item in balls) // Destroy whole old balls.
             {
                 Destroy(item.gameObject);
             }
         }
         balls = new Ball[players.Length];
         int index = 0;
-        foreach (var player in players) // init all players
+        foreach (var player in players) // Initializ all players.
         {   
             Ball ball = Instantiate(ballPrefab);
             ball.ActivateBall(false);
-            player.InitPlayer(ball); // init ball for player
+            player.InitPlayer(ball); // Initializ ball for player.
             ball.RotationBarDisplay(false);
             if(player.GetType() == typeof(AiPlayer)) {
-                ball.setOwner(true); // seting ball owner
+                ball.setOwner(true); // Seting ball owner.
             }
             balls[index] = ball;
             index++;
         }
-        if(players.Length > 1) { // make some space between players
+        if(players.Length > 1) { // Make some space between players.
             players[0].ball.transform.position = new Vector3(-2f,0f,0f);
             players[1].ball.transform.position = new Vector3(2f,0f,0f);
         }
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
         currentPlayer.StartTurn();
     }
 
-    void OnBallStoped() { // function for end of player turn
+    void OnBallStoped() { // Function for end of player turn. Change turn for another player.
         int index = 0;
         foreach (var item in players)
         {
@@ -96,7 +97,7 @@ public class PlayerController : MonoBehaviour
             index++;
         }
     }
-    public IEnumerator BotWait(Player player) { // bot player shoot delay
+    public IEnumerator BotWait(Player player) { // Bot player - shoot delay.
         yield return new WaitForSeconds(1f);
         player.StartTurn();
     }

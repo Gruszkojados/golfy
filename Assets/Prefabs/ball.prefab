@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &891231662971798390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8410579123315508585}
+  - component: {fileID: 8755781325394749559}
+  - component: {fileID: 4260251675546105489}
+  m_Layer: 0
+  m_Name: TargetBlock
+  m_TagString: BallTarget
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8410579123315508585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891231662971798390}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5740961655563771523}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8755781325394749559
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891231662971798390}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.2
+--- !u!114 &4260251675546105489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891231662971798390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431c23b268064e9489a7d72e8c87fdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1413688138425112428
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +258,7 @@ Transform:
   - {fileID: 8692726495804056391}
   - {fileID: 5740961655418589051}
   - {fileID: 7397938006709775711}
+  - {fileID: 8410579123315508585}
   - {fileID: 2375810612943653183}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -288,7 +349,7 @@ MonoBehaviour:
   rotationBar: {fileID: 5740961655418589050}
   ballColider: {fileID: 5740961655563771526}
   seeker: {fileID: 0}
-  animator: {fileID: 7644159658580727128}
+  targetBlock: {fileID: 4260251675546105489}
 --- !u!58 &5740961655563771526
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -304,7 +365,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.94
+  m_Radius: 0.9349162
 --- !u!95 &7644159658580727128
 Animator:
   serializedVersion: 3
@@ -476,7 +537,7 @@ Transform:
   m_Children:
   - {fileID: 8337932063989925093}
   m_Father: {fileID: 5740961655563771523}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4138403767459496615
 MonoBehaviour:

@@ -6,7 +6,7 @@ public class ShootButton : MonoBehaviour
     public static event Action<float> OnShoot = (power) => { };
 
     public ChargeBar chargeBar;
-    public void Shoot() { // shoot button behavior
+    public void Shoot() { // Shoot button behavior
         OnShoot.Invoke(chargeBar.chargePower);
         gameObject.SetActive(false);
     }

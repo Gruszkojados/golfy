@@ -24,6 +24,10 @@ public static class PlayerProfile // class for read/write info about sounds and 
         }
         PlayerPrefs.SetInt(audio, tmp);
     }
+    public static void ClearPrefs() {
+        Debug.Log("Clear data ");
+        PlayerPrefs.DeleteKey("allScores");
+    }
     public static void LoadSounds() {
         if(!PlayerPrefs.HasKey(audio)) {
             sounds = true;

@@ -1,10 +1,23 @@
-﻿using Pathfinding;
+﻿using System.Collections.Generic;
+using Pathfinding;
 using UnityEngine;
 
 public class AiPlayer : Player
 {   
     public static event System.Action SwitchColider = () => {};
     float maxVelocity = 115f;
+    struct directionStruct {
+        public Vector2 dir;
+        public Vector2 wallHit;
+        public Vector2 secWallHit;
+        public float cost;
+        public directionStruct(Vector2 dir, Vector2 wallHit, Vector2 secWallHit, float cost) {
+            this.dir = dir;
+            this.wallHit = wallHit;
+            this.secWallHit = secWallHit;
+            this.cost = cost;
+        }
+    }
     public override void StartTurn() {
         base.StartTurn();
         AstarPath.active.Scan();
@@ -17,122 +30,150 @@ public class AiPlayer : Player
         if (p.error) {
             Debug.Log("No path: " + p.errorLog);
         } else {
-            
+            Vector2 ballPosition = ball.transform.position;
+            bool isBounce = false;
             Path path = ball.seeker.GetCurrentPath();
             Vector3 lastCorrectPoint = new Vector3(1,1,0);
             if(path.vectorPath.Count <= 2) {
-                Vector2 vec = new Vector2(path.vectorPath[1].x - ball.transform.position.x, path.vectorPath[1].y - ball.transform.position.y).normalized;
-                ball.Shoot(Vector2.Distance(ball.transform.position, path.vectorPath[3]) * Random.Range(1.8f, 3f),vec);
+                Vector2 vec = new Vector2(path.vectorPath[1].x - ballPosition.x, path.vectorPath[1].y - ballPosition.y).normalized;
+                ball.Shoot(Vector2.Distance(ballPosition, path.vectorPath[3]) * Random.Range(1.8f, 3f),vec);
             } else {
-                
                 SwitchColider.Invoke();
                 ball.ballColider.enabled = false;
                 foreach (var item in path.vectorPath) {
 
-                    // dla kazdego punku na trasie do dolka szuka najodleglejszej mozliwej kolizji
-                    Vector2 q = new Vector2(item.x - ball.transform.position.x, item.y - ball.transform.position.y).normalized;
-                    float distance = Vector2.Distance(ball.transform.position, item);
-                    RaycastHit2D hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y),q , distance);
-                    
+                    // For all points, search for the farthest seen point 
+                    Vector2 finalDirection = new Vector2(item.x - ballPosition.x, item.y - ballPosition.y).normalized;
+                    float distance = Vector2.Distance(ballPosition, item);
+                    RaycastHit2D hit = Physics2D.CircleCast(ballPosition, 0.93f, finalDirection, distance);
+                    //Debug.DrawLine(ballPosition, item, Color.red, 100f);
+
                     if(hit.collider != null) {
-                        Debug.Log("Ball angle: " + Vector2.Angle(new Vector2(ball.transform.position.x, ball.transform.position.y), hit.point));
-                        Debug.DrawLine(new Vector2(ball.transform.position.x, ball.transform.position.y), hit.point, Color.white, 10f);
-                        Vector2 bounceDir = bounceDirection(q);
-                        Debug.DrawLine(hit.point, bounceDir, Color.red, 10f);
-                        // Debug.DrawLine(hit.point, bounceDir, Color.red, 10f);
-                        // Debug.DrawLine(hit.point, bounceDir, Color.red, 10f);
-                       
-                        // Vector2.Angle()
-                        // Vector3 rayPosition = new Vector3(transform.position.x, headHeight, transform.position.z);
-                        // Vector2 leftRayRotation = Vector2.AngleAxis(10, hit.point);
-                        // Vector3 rightRayRotation = Quaternion.AngleAxis(fovAngle, transform.up) * transform.forward;
-
-                        // //Constructing rays
-                        // Ray rayCenter = new Ray(rayPosition, transform.forward);
-                        // Ray rayLeft = new Ray(hit.point, leftRayRotation);
-                        // Ray rayRight = new Ray(rayPosition, rightRayRotation);
-
-                        // ustawia kierunek uderzenia, uwzgledaniajac losowy blad celuje w punkt ostatniego "widzianego przez pilke" miejsca bez kolizji
-                        q = new Vector2(lastCorrectPoint.x - ball.transform.position.x, lastCorrectPoint.y - ball.transform.position.y).normalized;
-                        float skaleOfFails = 0.001f;
-                        float random = Random.Range(1, 100) * skaleOfFails;
-                        if(q.x > 0) {
-                            q.x += random;
-                        } else {
-                            q.x += -random;
-                        }
-                        if(q.y > 0) {
-                            q.y += random;
-                        } else {
-                            q.y += -random;
-                        }
-
-                        // ustawia sile uderzenia, uwzgledaniajac losowy blad
-                        float velocity = Vector2.Distance(ball.transform.position, lastCorrectPoint) * Random.Range(2.4f, 5f);
                         
-                        // jesli pilka znajduje sie na piasku, ustaw sile udezenia na maksymalna
+                        if(path.vectorPath.IndexOf(item)+2<path.vectorPath.Count) {
+                            Vector2 position = path.vectorPath[path.vectorPath.IndexOf(item)+2];
+                        
+                        
+                            ball.targetBlock.SetPosition(position);
+                            ball.targetBlock.ChangeStatus();
+
+
+                            int RaysToShoot = 720;
+                            float angle = 0;
+                            List<directionStruct> directionsList = new List<directionStruct>();
+                            List<directionStruct> secondDirectionsList = new List<directionStruct>();
+                            for (int i=0; i<RaysToShoot; i++) {
+                                float x = Mathf.Sin(angle);
+                                float y = Mathf.Cos(angle);
+                                angle +=  2 * Mathf.PI / RaysToShoot;
+
+                                Vector2 direction = new Vector2 (x, y);
+                                RaycastHit2D wallHit = Physics2D.CircleCast(ballPosition, 0.93f, direction, 100f);
+                                Vector2 reflectDirection = Vector2.Reflect(direction, wallHit.normal);
+                                RaycastHit2D reflectHit = Physics2D.Raycast(wallHit.point, reflectDirection, 100f);
+                                
+                                if(reflectHit.collider != null) {
+                                    if(reflectHit.collider.tag=="BallTarget") {
+                                        //Debug.DrawLine(ballPosition, wallHit.point, Color.yellow, 10f);
+                                        //Debug.DrawLine(wallHit.point, reflectHit.point, Color.blue, 10f);
+                                        if(wallHit.collider.tag!="BallTarget") {
+                                            float cost = Vector2.Distance(ballPosition, wallHit.point) + Vector2.Distance(wallHit.point, reflectHit.point);
+                                            directionStruct dirCost = new directionStruct(direction.normalized, wallHit.point, reflectHit.point, cost);
+                                            directionsList.Add(dirCost);
+                                        }
+                                    }
+                                }
+                                Vector2 secondReflectDirection = Vector2.Reflect(reflectDirection, reflectHit.normal);
+                                RaycastHit2D secondReflectHit = Physics2D.Raycast(reflectHit.point, secondReflectDirection, 100f);
+                                if(secondReflectHit.collider != null) {
+                                    if(secondReflectHit.collider.tag=="BallTarget") {
+                                        //Debug.DrawLine(ballPosition, wallHit.point, Color.yellow, 10f);
+                                        //Debug.DrawLine(wallHit.point, reflectHit.point, Color.blue, 10f);
+                                        //Debug.DrawLine(reflectHit.point, secondReflectHit.point, Color.red, 10f);
+                                        if(wallHit.collider.tag!="BallTarget") {
+                                            float cost = Vector2.Distance(ballPosition, wallHit.point) 
+                                                + Vector2.Distance(wallHit.point, reflectHit.point)
+                                                + Vector2.Distance(reflectHit.point, secondReflectHit.point);
+                                            directionStruct dirCost = new directionStruct(direction.normalized, wallHit.point, secondReflectHit.point, cost);
+                                            directionsList.Add(dirCost);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(directionsList.Count > 0) {
+                                directionStruct costTemp = directionsList[0];
+                                foreach (directionStruct dir in directionsList)
+                                {   
+                                    if(costTemp.cost>dir.cost) {
+                                        costTemp = dir;
+                                    }
+                                }
+                                //Debug.DrawLine(ballPosition, costTemp.wallHit, Color.black, 10f);
+                                Debug.DrawLine(costTemp.wallHit, costTemp.secWallHit, Color.black, 10f);
+                                isBounce = true;
+                                if(costTemp.cost < 60) {
+                                    finalDirection = costTemp.dir;
+                                } else {
+                                    finalDirection = new Vector2(lastCorrectPoint.x - ballPosition.x, lastCorrectPoint.y - ballPosition.y).normalized;
+                                }
+                                
+                            } else {
+                                finalDirection = new Vector2(lastCorrectPoint.x - ballPosition.x, lastCorrectPoint.y - ballPosition.y).normalized;
+                            }
+
+
+                            ball.targetBlock.ChangeStatus();
+                        }
+                        // Set shoot direction by using last seen poit
+                        
+                        finalDirection = randomizeDirection(finalDirection);
+                        Debug.DrawRay(ballPosition, finalDirection*30, Color.red, 10f);
+                        // Seting shoot force with random fault
+                        float velocity = 0;
+                        if(isBounce) {
+                            velocity = maxVelocity;
+                        } else {
+                            velocity = Vector2.Distance(ballPosition, lastCorrectPoint) * Random.Range(2.4f, 5f);
+                        }
+                        
+                        // If ball standing on snad or ramp, then change force to max
                         SwitchColider.Invoke();
-                        hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y),q , distance);
+                        hit = Physics2D.Raycast(new Vector2(ballPosition.x, ballPosition.y),finalDirection , distance);
                         if(hit.collider!=null && (hit.collider.tag=="Sand" || hit.collider.tag=="Ramp")) {
                             velocity = maxVelocity;
                         }
 
-                        // jesli wartosc predkosci przekroczy wartosc max dla gracza, ustaw maksymalna wartosc na sztywno
                         if(velocity > maxVelocity) {
                             velocity = maxVelocity;
                         }
 
-                        ball.Shoot(velocity, q);
                         ball.ballColider.enabled = true;
+                        ball.Shoot(velocity, finalDirection);
                         return;
                     }
                     lastCorrectPoint = item;
+                    if(hit.collider == null && path.vectorPath.Count==path.vectorPath.IndexOf(item)+1) {
+                        ball.ballColider.enabled = true;
+                        ball.Shoot(maxVelocity, finalDirection);
+                    }
                 }
-                ShootAnyway(lastCorrectPoint);
             }
         }
     }
-
-    void ShootAnyway(Vector2 lastCorrectPoint) {
-        float distance = Vector2.Distance(ball.transform.position, lastCorrectPoint);
-        Vector2 q = new Vector2(lastCorrectPoint.x - ball.transform.position.x, lastCorrectPoint.y - ball.transform.position.y).normalized;
-        float skaleOfFails = 0.001f;
+    Vector2 randomizeDirection(Vector2 finalDirection) { // Adding random direction fault
+        float skaleOfFails = 0.00095f;
         float random = Random.Range(1, 100) * skaleOfFails;
-        if(q.x > 0) {
-            q.x += random;
+        if(finalDirection.x > 0) {
+            finalDirection.x += random;
         } else {
-            q.x += -random;
+            finalDirection.x += -random;
         }
-        if(q.y > 0) {
-            q.y += random;
+        if(finalDirection.y > 0) {
+            finalDirection.y += random;
         } else {
-            q.y += -random;
+            finalDirection.y += -random;
         }
-        float velocity = Vector2.Distance(ball.transform.position, lastCorrectPoint) * Random.Range(2.4f, 5f);
-        SwitchColider.Invoke();
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(ball.transform.position.x, ball.transform.position.y),q , distance);
-        if(hit.collider!=null && (hit.collider.tag=="Sand" || hit.collider.tag=="Ramp")) {
-            velocity = maxVelocity;
-        }
-        if(velocity > maxVelocity) {
-            velocity = maxVelocity;
-        }
-        ball.Shoot(velocity, q);
-        ball.ballColider.enabled = true;
-        return;
-    }
-
-    // bot strzelajacy w badny? TODO moze sie cos wymysli 
-    Vector2 bounceDirection(Vector2 vec) {
-        if(vec.x>0 && vec.y>0) {
-            vec.y = -vec.y;
-        } else if (vec.x>0 && vec.y<0) {
-            vec.x = -vec.x;
-        } else if (vec.x<0 && vec.y<0) {
-            vec.y = -vec.y;
-        } else if (vec.x<0 && vec.y>0) {
-            vec.x = -vec.x;
-        }
-        return vec;
+        return finalDirection;
     }
 }

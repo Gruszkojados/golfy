@@ -10,6 +10,7 @@ public class TutorialScript : MonoBehaviour
         images[currentImageIndex].SetActive(true);
     }
     public void ChangeImage(bool isUp) { // change tutorial image
+        SoundsAction.ButtonClick();
         if(isUp) {
             if(currentImageIndex == images.Length-1) {
                 return;

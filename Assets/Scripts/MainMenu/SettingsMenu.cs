@@ -7,8 +7,10 @@ public class SettingsMenu : MonoBehaviour
 {
     public static event Action<String> OnHitButton = (text) => {};
     public GameObject tutorial;
+    public GameObject clearProgress;
+
     int loadCtl = 0;
-    public void ShowHideMenu() { // show/hide settings GUI
+    public void ShowHideMenu() { // Show/hide settings GUI
         SoundsAction.ButtonClick();
 
         Transform tmp = transform.GetChild(0);
@@ -21,10 +23,28 @@ public class SettingsMenu : MonoBehaviour
         if(gameObject.activeSelf) {
             OnHitButton.Invoke("SETTINGS");
             gameObject.SetActive(false);
+            if(clearProgress.activeSelf) {
+                clearProgress.SetActive(false);
+            }
         } else {
             OnHitButton.Invoke("BACK");
             gameObject.SetActive(true);
         }
+    }
+
+    public void ShowHideClearProgress() {
+        SoundsAction.ButtonClick();
+        if(clearProgress.activeSelf) {
+            clearProgress.SetActive(false);
+        } else {
+            clearProgress.SetActive(true);
+        }
+    }
+
+    public void ClearData() {
+        SoundsAction.ButtonClick();
+        PlayerProfile.ClearPrefs();
+        Application.Quit();
     }
     public void LoadSpec() {
         loadCtl++;
