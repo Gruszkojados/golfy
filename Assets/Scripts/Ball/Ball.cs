@@ -41,6 +41,7 @@ public class Ball : MonoBehaviour
         isSupscribed = true;
     }
     void OnCollisionEnter2D(Collision2D other) {
+        Debug.Log(other.collider.tag);
         if(other.GetType()!=typeof(Hole) && other.GetType()!=typeof(Ball)) {
             SoundsAction.Bounce();
         }
