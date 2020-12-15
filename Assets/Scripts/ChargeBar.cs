@@ -18,7 +18,7 @@ public class ChargeBar : MonoBehaviour
         ShootButton.OnShoot += HideChargeBar;
     }
 
-    void Update() // charge bar size changer
+    void Update() // Charge bar size changer
     {
         if(up && chargeValue<=iterMax) {
             chargeValue += chargeValueChange * Time.deltaTime;

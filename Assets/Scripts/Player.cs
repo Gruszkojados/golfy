@@ -1,6 +1,6 @@
 ﻿using System;
 
-public abstract class Player // cCommon player class.
+public abstract class Player // Common player class.
 {   
     public event Action OnTunrFinished = () => {};
     public Ball ball;

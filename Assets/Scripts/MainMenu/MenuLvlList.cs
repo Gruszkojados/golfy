@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class MenuLvlList : MonoBehaviour
+public class MenuLvlList : MonoBehaviour // Showing list of levels
 {   
     public static event Action OnReturnToMenuButton = () => {};
      private void Awake() {

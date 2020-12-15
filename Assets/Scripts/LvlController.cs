@@ -64,7 +64,7 @@ public class LvlController : MonoBehaviour
         OnLvlLoaded.Invoke(currentLvl, lvlIndex);
     }
 
-    void lvlComplited(bool isBot, bool scoreLimit) { // correct messages in panel after game 
+    void lvlComplited(bool isBot, bool scoreLimit) { // Seting correct messages in panel after game 
         if(isBot) {
             TextMeshProUGUI tmp = lvlLostObject.GetComponentInChildren<TextMeshProUGUI>();
             tmp.text = "Bot won !";
@@ -81,7 +81,7 @@ public class LvlController : MonoBehaviour
         }
     }
 
-    public void GoToHome() {
+    public void GoToHome() { // Back to main menu
         SoundsAction.ButtonClick();
         StartCoroutine(LoadLvlWait());
     }

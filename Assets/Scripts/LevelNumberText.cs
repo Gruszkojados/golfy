@@ -13,7 +13,7 @@ public class LevelNumberText : MonoBehaviour
         LvlController.OnLvlLoaded -= SetLevelNumber;
     }
 
-    public void SetLevelNumber(Lvl _, int level) {
+    public void SetLevelNumber(Lvl _, int level) { // Seting current level number.
         textMeshProUGUI.text = (level+1).ToString();
     }
 }

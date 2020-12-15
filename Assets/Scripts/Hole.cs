@@ -72,8 +72,20 @@ public class Hole : MonoBehaviour
 
     public IEnumerator Wait(Ball ball) {
         yield return new WaitForSeconds(0.5f);
-        ChageHollImage();
-        onBallInHole.Invoke(ball.getOwner(), ScoreDifference());
+        int errIter = 0;
+        try {
+            ChageHollImage();
+            onBallInHole.Invoke(ball.getOwner(), ScoreDifference());
+        } catch (System.Exception e) {
+            if (errIter>2) {
+                errIter = 0;
+                throw;
+            } else {
+                onBallInHole.Invoke(ball.getOwner(), ScoreDifference());
+                errIter++;
+                Debug.Log("Hole error number: " + errIter + " " + e.Message);
+            }
+        }
     }
 
     bool ScoreDifference() { // Checking is game complete, only "single" mode.

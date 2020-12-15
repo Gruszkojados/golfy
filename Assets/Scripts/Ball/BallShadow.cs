@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BallShadow : MonoBehaviour
+public class BallShadow : MonoBehaviour // Rotation for ball shadow.
 {
     Quaternion rotation;
     void Awake()

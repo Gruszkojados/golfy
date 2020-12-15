@@ -450,16 +450,6 @@ LineRenderer:
   - {x: -60, y: 0, z: 0}
   - {x: -20, y: 0, z: 0}
   - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 2.2
@@ -580,12 +570,12 @@ PrefabInstance:
     - target: {fileID: 556405087718133612, guid: e556960b1dbee1246a5e56e70f5372af,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.119863965
       objectReference: {fileID: 0}
     - target: {fileID: 556405087718133612, guid: e556960b1dbee1246a5e56e70f5372af,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99279034
       objectReference: {fileID: 0}
     - target: {fileID: 556405087718133612, guid: e556960b1dbee1246a5e56e70f5372af,
         type: 3}
@@ -605,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 556405087718133612, guid: e556960b1dbee1246a5e56e70f5372af,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 13.769001
       objectReference: {fileID: 0}
     - target: {fileID: 556405087718133612, guid: e556960b1dbee1246a5e56e70f5372af,
         type: 3}

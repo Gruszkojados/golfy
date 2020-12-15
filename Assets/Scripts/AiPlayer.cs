@@ -164,8 +164,9 @@ public class AiPlayer : Player
                     if(exceptionCount > 10) {
                         Debug.Log("ERROR: " + e.Message + " " + e.StackTrace);
                     } else {
-                        Debug.Log("Error");
+                        Debug.Log("Ai error number: " + exceptionCount);
                         OnPathComplete(path);
+                        throw;
                     }
                 }
             }

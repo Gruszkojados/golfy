@@ -442,18 +442,6 @@ LineRenderer:
   - {x: 20, y: 40, z: 0}
   - {x: -20, y: 40, z: 0}
   - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
-  - {x: -20, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 2.2
@@ -554,7 +542,7 @@ PrefabInstance:
     - target: {fileID: 5737436766230594324, guid: 144a38af5074b17438ac4f66e22cd822,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 33.9
+      value: 34
       objectReference: {fileID: 0}
     - target: {fileID: 5737436766230594324, guid: 144a38af5074b17438ac4f66e22cd822,
         type: 3}
@@ -894,12 +882,12 @@ PrefabInstance:
     - target: {fileID: 1467550489244011672, guid: e1eb8f6d895d45840830c21d0c02458c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.502916
+      value: -6.6
       objectReference: {fileID: 0}
     - target: {fileID: 1467550489244011672, guid: e1eb8f6d895d45840830c21d0c02458c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 49.071068
+      value: 52.5
       objectReference: {fileID: 0}
     - target: {fileID: 1467550489244011672, guid: e1eb8f6d895d45840830c21d0c02458c,
         type: 3}

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class GameMenu : MonoBehaviour
+public class GameMenu : MonoBehaviour // Game mode buttons from main menu.
 {   
     public static event Action OnPlayButtonClick = () => {};
     private void Awake() {

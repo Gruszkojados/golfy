@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class CurrentScoreText : MonoBehaviour
+public class CurrentScoreText : MonoBehaviour // Class for display current score.
 {   
     TextMeshProUGUI textMeshProUGUI;
     void Awake() {

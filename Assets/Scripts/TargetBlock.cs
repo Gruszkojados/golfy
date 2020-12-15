@@ -10,7 +10,7 @@ public class TargetBlock : MonoBehaviour
         }
     }
 
-    public void SetPosition(Vector2 vec) {
+    public void SetPosition(Vector2 vec) { // Change position of block. AiAplyer is aim on it when he want to bounce.
         gameObject.transform.SetPositionAndRotation(new Vector3(vec.x, vec.y, 0), new Quaternion());
     }
 }

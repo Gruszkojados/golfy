@@ -28,17 +28,25 @@ public class LvlScore : MonoBehaviour
         Hole.onBallInHole -= UpdateHighScore;
     }
 
-    void UpdateHighScore(bool isBot, bool scoreLimit) {
-        if(!isBot && !scoreLimit) {
-            if(allScores.scoreList.Count > currentLvlIndex) {
-                if(allScores.scoreList[currentLvlIndex] > numberOfLvlScore) {
-                    allScores.scoreList[currentLvlIndex] = numberOfLvlScore;
+    void UpdateHighScore(bool isBot, bool scoreLimit) { // Updating level score if is new best score
+        try
+        {
+            if(!isBot && !scoreLimit) {
+                if(allScores.scoreList.Count > currentLvlIndex) {
+                    if(allScores.scoreList[currentLvlIndex] > numberOfLvlScore) {
+                        allScores.scoreList[currentLvlIndex] = numberOfLvlScore;
+                    }
+                } else {
+                    allScores.scoreList.Add(numberOfLvlScore);
                 }
-            } else {
-                allScores.scoreList.Add(numberOfLvlScore);
+                OnBestScoreLoaded.Invoke(allScores.scoreList[currentLvlIndex]);
+                allScores.SaveScore();
             }
-            OnBestScoreLoaded.Invoke(allScores.scoreList[currentLvlIndex]);
-            allScores.SaveScore();
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Index: " + allScores.scoreList[currentLvlIndex] + "LvlScore error: " + e.Message);
+            throw;
         }
     }
 
@@ -51,7 +59,7 @@ public class LvlScore : MonoBehaviour
         OnScoreChange.Invoke(numberOfLvlScore);
     }
 
-    void OnLvlLoaded(Lvl _, int index) {
+    void OnLvlLoaded(Lvl _, int index) { // Event for sending info about current level best score
         numberOfLvlScore = 0;
         currentLvlIndex = index;    
         var highScore = currentLvlIndex >= allScores.scoreList.Count ? 10 : allScores.scoreList[currentLvlIndex];

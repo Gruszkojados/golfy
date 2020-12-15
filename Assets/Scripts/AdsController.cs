@@ -18,7 +18,6 @@ public class AdsController : MonoBehaviour // Class for monetization.
     }
 
     void AdShow(int type) {
-        Debug.Log("Ad Show Now");
         try {
            adIndex++;
             if(adIndex%4==0) {
@@ -33,6 +32,7 @@ public class AdsController : MonoBehaviour // Class for monetization.
         }
         catch {
             Debug.Log("Ad error");
+            throw;
         }
         
     }

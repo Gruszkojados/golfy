@@ -41,7 +41,6 @@ public class Ball : MonoBehaviour
         isSupscribed = true;
     }
     void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log(other.collider.tag);
         if(other.GetType()!=typeof(Hole) && other.GetType()!=typeof(Ball)) {
             SoundsAction.Bounce();
         }
@@ -56,7 +55,7 @@ public class Ball : MonoBehaviour
             isOnRamp = false;
         }
     }
-    void Update() {
+    void Update() { // Update checking that ball is moveing.
         
         if(!isMoving) {
             return;
@@ -75,7 +74,7 @@ public class Ball : MonoBehaviour
         }
     }
 
-    void Rotate(float rotate) {
+    void Rotate(float rotate) { // Ball rotation function, only for chuman
         if(!canRotate) {
             return;
         }
@@ -128,7 +127,7 @@ public class Ball : MonoBehaviour
 
     /*### functions for obstacles ###*/
 
-    // function for holes
+    // Function for holes
     public void SmallChangeDirection() { 
         if(Random.Range(0f, 2f) > 1) {
             rigid.AddForce(new Vector2(-1000f, 500f));
